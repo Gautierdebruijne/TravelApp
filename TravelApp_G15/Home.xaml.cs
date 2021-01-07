@@ -26,5 +26,21 @@ namespace TravelApp_G15
         {
             this.InitializeComponent();
         }
+
+        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs e)
+        {
+            if (e.IsSettingsSelected)
+                Content.Navigate(typeof(App));
+            else
+            {
+                var item = e.SelectedItem as NavigationViewItem;
+
+                //switch (item.Tag.ToString())
+                //{
+                //    case "vacations": Content.Navigate(typeof(Vacation)); break;
+                //    case "bookings": Content.Navigate(typeof(Booking)); break;
+                //}
+            }
+        }
     }
 }
