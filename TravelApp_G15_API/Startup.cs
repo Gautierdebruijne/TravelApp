@@ -55,9 +55,9 @@ namespace TravelApp_G15_API
             services.AddOpenApiDocument(d =>
             {
                 d.DocumentName = "OpenAPI 3";
-                d.Title = "Essentials API";
+                d.Title = "Travel Application API";
                 d.Version = "version 0.1";
-                d.Description = "The Essentials API makes our lives easier!";
+                d.Description = "This API should make our lives easier!";
                 d.AddSecurity("JWT", Enumerable.Empty<String>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
