@@ -13,6 +13,7 @@ using System;
 using System.Linq;
 using System.Text;
 using TravelApp_G15_API.Data;
+using TravelApp_G15_API.Repositories;
 
 namespace TravelApp_G15_API
 {
@@ -33,6 +34,7 @@ namespace TravelApp_G15_API
             services.AddIdentity<IdentityUser, IdentityRole>(r => r.User.RequireUniqueEmail = true).AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddScoped<DataInitializer>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.Configure<IdentityOptions>(options => {
                 options.Password.RequireDigit = true;
