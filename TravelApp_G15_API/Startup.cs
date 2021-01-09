@@ -35,6 +35,7 @@ namespace TravelApp_G15_API
 
             services.AddScoped<DataInitializer>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.Configure<IdentityOptions>(options => {
                 options.Password.RequireDigit = true;

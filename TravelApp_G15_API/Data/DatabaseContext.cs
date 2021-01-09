@@ -11,6 +11,7 @@ namespace TravelApp_G15_API.Data
     public class DatabaseContext : IdentityDbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
