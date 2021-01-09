@@ -17,5 +17,8 @@ namespace TravelApp_G15_API.DTO
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public string Role { get; set; }
     }
 }

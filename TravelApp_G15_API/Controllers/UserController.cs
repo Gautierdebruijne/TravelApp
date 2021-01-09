@@ -42,6 +42,7 @@ namespace TravelApp_G15_API.Controllers
 
         #region HttpGet
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public ActionResult<List<User>> GetUserByEmail()
         {
             List<User> u = _userRepository.GetAll();
@@ -58,10 +59,11 @@ namespace TravelApp_G15_API.Controllers
             if (user != null)
             {
                 var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+                var roles = await _userManager.GetRolesAsync(user);
 
                 if (result.Succeeded)
                 {
-                    string token = GetToken(user);
+                    string token = GetToken(user, roles);
                     return Created("", token);
                 }
             }
@@ -85,10 +87,12 @@ namespace TravelApp_G15_API.Controllers
 
                 if (result.Succeeded)
                 {
+                    var roles = await _userManager.GetRolesAsync(user);
+
                     _userRepository.Add(u);
                     _userRepository.SaveChanges();
 
-                    string token = GetToken(user);
+                    string token = GetToken(user, roles);
                     return Created("", token);
                 }
             }
@@ -96,13 +100,18 @@ namespace TravelApp_G15_API.Controllers
             return BadRequest();
         }
 
-        private string GetToken(IdentityUser user)
+        private string GetToken(IdentityUser user, IList<string> roles)
         {
             var claims = new ClaimsIdentity(new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
             });
+
+            if (roles.Count > 0)
+            {
+                foreach (var role in roles) { claims.AddClaim(new Claim(ClaimTypes.Role, role)); }
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
