@@ -12,6 +12,7 @@ namespace TravelApp_G15_API.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Trip> Trips { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
