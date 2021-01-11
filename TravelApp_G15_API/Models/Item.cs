@@ -11,5 +11,6 @@ namespace TravelApp_G15_API.Models
         public string Name { get; set; }
         public int Amount { get; set; }
         public bool Checked { get; set; }
+        public Category Category { get; set; }
     }
 }

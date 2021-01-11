@@ -21,12 +21,18 @@ namespace TravelApp_G15_API.Repositories
 
         public List<Trip> GetAll()
         {
-            return _trips.ToList();
+            return _trips
+                .Include(c => c.Categories)
+                .Include(i => i.Items)
+                .ToList();
         }
 
         public Trip GetById(int id)
         {
-            return _trips.FirstOrDefault(t => t.TripID == id);
+            return _trips
+                .Include(c => c.Categories)
+                .Include(i => i.Items)
+                .FirstOrDefault(t => t.TripID == id);
         }
 
         public void AddTrip(Trip t)

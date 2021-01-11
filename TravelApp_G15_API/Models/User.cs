@@ -10,5 +10,11 @@ namespace TravelApp_G15_API.Models
         public int UserID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public ICollection<Trip> Trips { get; set; }
+
+        public User() 
+        {
+            Trips = new List<Trip>();
+        }
     }
 }

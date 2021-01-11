@@ -20,12 +20,20 @@ namespace TravelApp_G15_API.Repositories
         }
         public List<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _users
+                .Include(t => t.Trips).ThenInclude(c => c.Categories)
+                .Include(t => t.Trips).ThenInclude(i => i.Items)
+                .Include(t => t.Trips).ThenInclude(l => l.Locations)
+                .ToList();
         }
 
         public User GetByEmail(string email)
         {
-            return _users.FirstOrDefault(u => u.Email == email);
+            return _users
+                .Include(t => t.Trips).ThenInclude(c => c.Categories)
+                .Include(t => t.Trips).ThenInclude(i => i.Items)
+                .Include(t => t.Trips).ThenInclude(l => l.Locations)
+                .FirstOrDefault(u => u.Email == email);
         }
 
         public void Add(User u)
