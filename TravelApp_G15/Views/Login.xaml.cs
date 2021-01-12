@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
+using TravelApp_G15.ViewModels;
+using TravelApp_G15.Views;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -61,9 +63,27 @@ namespace TravelApp_G15
             }
         }
 
-        private void LoginUser()
+        private async void LoginUser()
         {
+            var loginvm = new LoginViewModel();
 
+            try
+            {
+                await loginvm.Login(txtEmail.Text, txtPassword.Password);
+
+                if (loginvm.Success)
+                {
+                    this.Frame.Navigate(typeof(Dashboard));
+                }
+                else
+                {
+                    txtError.Text = "The given password is incorrect!";
+                }
+            }
+            catch(Exception e)
+            {
+                txtError.Text = e.Message.ToString();
+            }
         }
     }
 }
