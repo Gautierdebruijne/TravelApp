@@ -36,7 +36,7 @@
                 CornerRadius="20" 
             />
 
-            <TextBox x:Name="txtPassword" 
+            <PasswordBox x:Name="txtPassword" 
                 Grid.Row="2" 
                 PlaceholderText="Password"
                 FontSize="30" 
@@ -49,14 +49,15 @@
 
             <TextBlock x:Name="txtError" 
                 Grid.Row="3"
-                FontSize="20" 
-                Foreground="#B3B3B3" 
+                FontSize="20"
+                Padding="10 0 0 0"
+                Foreground="OrangeRed" 
                 Width="600" 
                 Height="30" 
-                Padding="11"
             />
 
             <Button x:Name="btnLogin"
+                Click="btnLogin_Click"
                 Grid.Row="4"   
                 Width="200"
                 Height="50"

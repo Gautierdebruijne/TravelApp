@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -28,7 +29,39 @@ namespace TravelApp_G15
             this.InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            ValidateEmail();
+            ValidateNull();
+
+            LoginUser();
+        }
+
+        private void ValidateEmail()
+        {
+            if (Regex.IsMatch(txtEmail.Text, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$"))
+            {
+                txtError.Text = "";
+            }
+            else
+            {
+                txtError.Text = "The given email is incorrect!";
+            }
+        }
+
+        private void ValidateNull()
+        {
+            if (txtEmail.Text.Equals("") || txtEmail.Text == null)
+            {
+                txtError.Text = "Email address is required!";
+            }
+            else if(txtPassword.Password.Equals("") || txtPassword.Password == null)
+            {
+                txtError.Text = "Password is required!";
+            }
+        }
+
+        private void LoginUser()
         {
 
         }
