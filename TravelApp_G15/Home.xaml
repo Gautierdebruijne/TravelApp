@@ -22,5 +22,29 @@
                 </TransitionCollection>
             </Frame.ContentTransitions>
         </Frame>
+        <Grid>
+            <!--<Image Source="Assets/background.jpg" x:Name="background" Margin="10,339,508,1"/>
+            <TextBlock Margin="60,91,525,0" Text="Welcome back, traveller!" TextWrapping="Wrap" FontFamily="Ink Free" FontSize="85" FontWeight="Bold" Height="131" VerticalAlignment="Top"/>
+            <Rectangle Margin="1007,91,0,91" Stroke="Black" HorizontalAlignment="Left" Width="439"/>-->
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50">
+                <Run FontWeight="SemiBold" Text="Welcome back, "></Run>
+                <Run Text="Gautier!" Foreground="#FF01A3ff"  FontWeight="Bold" x:Name="userName" />
+                </TextBlock>
+            </Grid>
+        </Grid>
+
     </Grid>
 </Page>
