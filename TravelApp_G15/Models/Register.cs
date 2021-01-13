@@ -12,5 +12,13 @@ namespace TravelApp_G15.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string PasswordConfirm { get; set; }
+
+        public Register(string name, string email, string password, string passwordconfirm)
+        {
+            Name = name;
+            Email = email;
+            Password = password;
+            PasswordConfirm = passwordconfirm;
+        }
     }
 }
