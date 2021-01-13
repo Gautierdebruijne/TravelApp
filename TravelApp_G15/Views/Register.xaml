@@ -9,7 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid Grid.Row="1" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image Source="../assets/waiting.jpg" x:Name="background" Opacity="0.5" HorizontalAlignment="Right" Margin="0,87,0,87"/>
+
+        <Grid Grid.Row="1" Width="800" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="200" />
                 <RowDefinition Height="100" />

@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="WhiteSmoke">
+    Background="White">
 
     <Grid>
-        <Image Source="../assets/background.jpg" x:Name="background" Opacity="0.10" />
+        <Image Source="../assets/checkin.jpg" x:Name="background" Opacity="0.5" HorizontalAlignment="Left" Margin="0,87,0,87"/>
 
-        <Grid Grid.Row="1" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Margin="0,175,0,175" HorizontalAlignment="Right" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition Height="200" />
                 <RowDefinition Height="100" />
@@ -48,7 +48,7 @@
                 Padding="11"
                 CornerRadius="20" 
             />
-            
+
             <TextBlock x:Name="txtError" 
                 Grid.Row="3"
                 FontSize="20"
@@ -78,7 +78,7 @@
                 HorizontalAlignment="Center"
                 Background="Transparent"
                 CornerRadius="20">
-                
+
                 <StackPanel>
                     <TextBlock Text="Don't have an account? Sign up!" FontSize="25" FontWeight="Normal"/>
                 </StackPanel>
