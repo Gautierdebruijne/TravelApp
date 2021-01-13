@@ -9,9 +9,9 @@
     Background="White">
 
     <Grid>
-        <Image Source="../assets/checkin.jpg" x:Name="background" Opacity="0.5" HorizontalAlignment="Left" Margin="0,87,0,87"/>
+        <Image Source="../assets/checkin.jpg" x:Name="background" Opacity="0.5" HorizontalAlignment="Left" Margin="37,87,0,87"/>
 
-        <Grid Height="650" VerticalAlignment="Center" HorizontalAlignment="Right" Width="800">
+        <Grid Height="650" VerticalAlignment="Center" HorizontalAlignment="Right" Width="800" Margin="0 0 50 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="200" />
                 <RowDefinition Height="100" />

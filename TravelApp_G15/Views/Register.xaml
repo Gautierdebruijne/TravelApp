@@ -11,16 +11,15 @@
     <Grid>
         <Image Source="../assets/waiting.jpg" x:Name="background" Opacity="0.5" HorizontalAlignment="Right" Margin="0,87,0,87"/>
 
-        <Grid Grid.Row="1" Width="800" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <Grid Grid.Row="1" Width="800" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="200" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
-                <RowDefinition Height="50" />
                 <RowDefinition Height="100" />
-                <RowDefinition Height="50" />
+                <RowDefinition Height="100" />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
@@ -28,7 +27,7 @@
                 <Run Text="Sign Up" Foreground="Black"  FontWeight="Bold" x:Name="userName" />
             </TextBlock>
 
-            <TextBox x:Name="txtName" 
+            <TextBox x:Name="txtName"
                 Grid.Row="1" 
                 PlaceholderText="Username"
                 FontSize="30" 
@@ -39,7 +38,7 @@
                 CornerRadius="20" 
             />
 
-            <TextBox x:Name="txtEmail" 
+            <TextBox x:Name="txtEmail"
                 Grid.Row="2" 
                 PlaceholderText="Email"
                 FontSize="30" 
@@ -50,7 +49,7 @@
                 CornerRadius="20" 
             />
 
-            <PasswordBox x:Name="txtPassword" 
+            <PasswordBox x:Name="txtPassword"
                 Grid.Row="3" 
                 PlaceholderText="Password"
                 FontSize="30" 
@@ -61,7 +60,8 @@
                 CornerRadius="20" 
             />
 
-            <PasswordBox x:Name="txtPasswordConfirm" 
+            <PasswordBox x:Name="txtPasswordConfirm"
+                PasswordChanged="txtPasswordConfirm_PasswordChanged"
                 Grid.Row="4" 
                 PlaceholderText="Confirm Password"
                 FontSize="30" 
@@ -78,10 +78,10 @@
                 Padding="10 0 0 0"
                 Foreground="OrangeRed" 
                 Width="600" 
-                Height="30" 
             />
 
             <Button x:Name="btnRegister"
+                Click="btnRegister_Click"
                 Grid.Row="6"   
                 Width="600"
                 Height="65"
