@@ -30,7 +30,7 @@ namespace TravelApp_G15_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<DatabaseContext>(c => c.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DatabaseContext>(c => c.UseSqlServer(Configuration.GetConnectionString("OnlineConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>(r => r.User.RequireUniqueEmail = true).AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddScoped<DataInitializer>();
