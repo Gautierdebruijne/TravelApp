@@ -11,7 +11,7 @@
     <Grid>
         <Image Source="../assets/checkin.jpg" x:Name="background" Opacity="0.5" HorizontalAlignment="Left" Margin="0,87,0,87"/>
 
-        <Grid Margin="0,175,0,175" HorizontalAlignment="Right" Width="800">
+        <Grid Height="650" VerticalAlignment="Center" HorizontalAlignment="Right" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition Height="200" />
                 <RowDefinition Height="100" />

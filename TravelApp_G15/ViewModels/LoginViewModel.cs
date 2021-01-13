@@ -25,7 +25,7 @@ namespace TravelApp_G15.ViewModels
 
             var login = new LoginModel(email, password);
             var jsonLogin = JsonConvert.SerializeObject(login);
-            var url = "https://travelappg15api.azurewebsites.net/api/User/Login";
+            var url = "https://localhost:5001/api/User/Login";
             var data = new StringContent(jsonLogin, Encoding.UTF8, "application/json");
             var res = await client.PostAsync(url, data);
             var json = await res.Content.ReadAsStringAsync();
