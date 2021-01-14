@@ -42,7 +42,7 @@ namespace TravelApp_G15_API.Controllers
 
         #region HttpGet
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public ActionResult<List<User>> GetUserByEmail()
         {
             List<User> u = _userRepository.GetAll();

@@ -14,22 +14,35 @@ namespace TravelApp_G15_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Customer")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Customer")]
     public class TripController : ControllerBase
     {
         private readonly ITripRepository _tripRepository;
+        private readonly IUserRepository _userRepository;
 
-        public TripController(ITripRepository repo)
+        public TripController(ITripRepository tripRepo, IUserRepository userRepo)
         {
-            _tripRepository = repo;
+            _tripRepository = tripRepo;
+            _userRepository = userRepo;
         }
 
+        
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet]
         public ActionResult<List<Trip>> GetAll()
         {
             List<Trip> t = _tripRepository.GetAll();
             return t;
         }
+
+        //[HttpGet]
+        //public ActionResult<List<Trip>> GetUserTrips()
+        //{
+        //    //get all by user 
+        //   // List<Trip> t = _tripRepository.();
+        //    return null;
+        //}
+
 
         [HttpGet("tripID")]
         public ActionResult<Trip> GetById(int tripID)
