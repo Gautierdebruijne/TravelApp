@@ -27,5 +27,13 @@ namespace TravelApp_G15_API.Models
         {
             Date = date;
         }
+
+        public void AddLocation(Location location) => Locations.Add(location);
+        public void AddCategory(Category category) => Categories.Add(category);
+        public void AddItem(Item item) => Items.Add(item);
+        public void RemoveLocation(Location location) => Locations.Remove(location);
+        public void RemoveCategory(Category category) => Categories.Remove(category);
+        public void RemoveItem(Item item) => Items.Remove(item);
+
     }
 }

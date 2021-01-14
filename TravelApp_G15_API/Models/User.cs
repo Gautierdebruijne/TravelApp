@@ -16,5 +16,8 @@ namespace TravelApp_G15_API.Models
         {
             Trips = new List<Trip>();
         }
+
+        public void AddTrip(Trip trip) => Trips.Add(trip);
+        public void RemoveTrip(Trip trip) => Trips.Remove(trip);
     }
 }

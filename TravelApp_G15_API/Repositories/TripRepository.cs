@@ -36,6 +36,56 @@ namespace TravelApp_G15_API.Repositories
                 .FirstOrDefault(t => t.TripID == id);
         }
 
+
+        public bool TryGetLocations(int id, out List<Location> locations)
+        {
+            var trip = _trips.Include(l => l.Locations).FirstOrDefault(a => a.TripID == id);
+            locations = trip.Locations.ToList();
+
+            return locations != null;
+        }
+
+        public bool TryGetLocation(int id, int locID, out Location location)
+        {
+            var trip = _trips.Include(l => l.Locations).FirstOrDefault(a => a.TripID == id);
+            location = trip.Locations.FirstOrDefault(l => l.LocationID == locID);
+
+            return location != null;
+        }
+
+        public bool TryGetCategories(int id, out List<Category> categories)
+        {
+            var trip = _trips.Include(l => l.Categories).FirstOrDefault(a => a.TripID == id);
+            categories = trip.Categories.ToList();
+
+            return categories != null;
+        }
+
+        public bool TryGetCategory(int id, int catID, out Category category)
+        {
+            var trip = _trips.Include(l => l.Categories).FirstOrDefault(a => a.TripID == id);
+            category = trip.Categories.FirstOrDefault(l => l.CategoryID == catID);
+
+            return category != null;
+        }
+
+        public bool TryGetItems(int id, out List<Item> items)
+        {
+            var trip = _trips.Include(l => l.Items).FirstOrDefault(a => a.TripID == id);
+            items = trip.Items.ToList();
+
+            return items != null;
+        }
+
+        public bool TryGetItem(int id, int itemID, out Item item)
+        {
+            var trip = _trips.Include(l => l.Items).FirstOrDefault(a => a.TripID == id);
+            item = trip.Items.FirstOrDefault(l => l.ItemID == itemID);
+
+            return item != null;
+        }
+
+
         public void AddTrip(Trip t)
         {
             _trips.Add(t);
@@ -50,5 +100,7 @@ namespace TravelApp_G15_API.Repositories
         {
             _context.SaveChanges();
         }
+
+      
     }
 }

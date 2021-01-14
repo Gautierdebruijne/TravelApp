@@ -8,10 +8,12 @@ namespace TravelApp_G15_API.Repositories
 {
     public interface IUserRepository
     {
-        public User GetByEmail(string email);
-        public List<User> GetAll();
-        public void Add(User u);
-        public void Remove(User u);
-        public void SaveChanges();
+        User GetByEmail(string email);
+        List<User> GetAll();
+        bool TryGetTrips(int userID, out List<Trip> trips);
+        bool TryGetTrip(int userID, int tripID, out Trip trip);
+        void Add(User u);
+        void Remove(User u);
+        void SaveChanges();
     }
 }

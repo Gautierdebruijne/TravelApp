@@ -26,19 +26,25 @@ namespace TravelApp_G15_API.Controllers
         private User u;
 
         private readonly IUserRepository _userRepository;
+        private readonly ITripRepository _tripRepository;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _config;
         
-        public UserController(IUserRepository repo, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config)
+        public UserController(IUserRepository repo,ITripRepository tripRepo, SignInManager<IdentityUser> signInManager, 
+            UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager,
+            IConfiguration config)
         {
             _userRepository = repo;
+            _tripRepository = tripRepo;
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _config = config;
         }
+
+
 
         #region HttpGet
         [HttpGet]
@@ -48,6 +54,30 @@ namespace TravelApp_G15_API.Controllers
             List<User> u = _userRepository.GetAll();
             return u;
         }
+
+
+        [HttpGet("{userID}/trips")]
+        public ActionResult<List<TripDTO>> GetUserTrips(int userID)
+        {
+            List<TripDTO> tripList = new List<TripDTO>();
+
+            if (!_userRepository.TryGetTrips(userID, out var trips))
+                NotFound();
+
+            foreach(var t in trips)
+            {
+                var dto = new TripDTO
+                {
+                    Name = t.Name,
+                    Date = t.Date
+                };
+
+                tripList.Add(dto);
+            }
+
+            return tripList;
+        }
+
         #endregion
 
         #region HttpPost

@@ -35,6 +35,21 @@ namespace TravelApp_G15_API.Repositories
                 .Include(t => t.Trips).ThenInclude(l => l.Locations)
                 .FirstOrDefault(u => u.Email == email);
         }
+        public bool TryGetTrips(int id, out List<Trip> trips)
+        {
+            var users = _users.Include(l => l.Trips).FirstOrDefault(a => a.UserID == id);
+            trips = users.Trips.ToList();
+
+            return users != null;
+        }
+
+        public bool TryGetTrip(int id, int tripID, out Trip trip)
+        {
+            var users = _users.Include(l => l.Trips).FirstOrDefault(a => a.UserID == id);
+            trip = users.Trips.FirstOrDefault(l => l.TripID == tripID);
+
+            return trip != null;
+        }
 
         public void Add(User u)
         {

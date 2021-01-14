@@ -27,7 +27,7 @@ namespace TravelApp_G15_API.Controllers
         }
 
         
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet]
         public ActionResult<List<Trip>> GetAll()
         {
@@ -35,13 +35,6 @@ namespace TravelApp_G15_API.Controllers
             return t;
         }
 
-        //[HttpGet]
-        //public ActionResult<List<Trip>> GetUserTrips()
-        //{
-        //    //get all by user 
-        //   // List<Trip> t = _tripRepository.();
-        //    return null;
-        //}
 
 
         [HttpGet("tripID")]
