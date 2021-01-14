@@ -81,7 +81,7 @@ namespace TravelApp_G15_API.Controllers
         [HttpGet("{userID}/{tripID}/trip")]
         public ActionResult<TripDTO> GetUserTrips(int userID, int tripID)
         {
-            TripDTO tripList = new TripDTO();
+           
 
             if (!_userRepository.TryGetTrip(userID, tripID,out var trip))
                 NotFound();
@@ -96,32 +96,58 @@ namespace TravelApp_G15_API.Controllers
             return dto;
         }
 
-        [HttpGet("{userID}")]
-        public ActionResult<String> GetEmailUser(int userID)
+        [HttpGet("{email}")]
+        public ActionResult<int> GetUserIDbyEmail(String email)
         {
-            if (!_userRepository.TryGetUserByID(userID, out var email))
+            if (!_userRepository.TryGetUserIDbyEmail(email, out var userID))
                 NotFound();
 
-            return email;
+            return userID;
         }
 
-        //[HttpGet("{userID}/{tripID}/trip")]
-        //public ActionResult<TripDTO> GetUserTrips(int userID, int tripID)
-        //{
-        //    TripDTO tripList = new TripDTO();
+        [HttpGet("{userID}/{tripID}/locations")]
+        public ActionResult<List<LocationDTO>> GetUserTripLocations(int userID, int tripID)
+        {
+            List<LocationDTO> locationList = new List<LocationDTO>();
 
-        //    if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
-        //        NotFound();
+            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+                NotFound();
+            if (!_tripRepository.TryGetLocations(trip.TripID, out var locations))
+                NotFound();
 
-        //    var dto = new TripDTO
-        //    {
-        //        Name = trip.Name,
-        //        Date = trip.Date
-        //    };
+            foreach(var l in locations)
+            {
+                var dto = new LocationDTO
+                {
+                    City = l.City,
+                    Country = l.Country
+                };
+                locationList.Add(dto);
+            }
+
+            return locationList;
+        }
+
+        [HttpGet("{userID}/{tripID}/locations/{locationID}")]
+        public ActionResult<LocationDTO> GetUserTripLocation(int userID, int tripID, int locationID)
+        {
+          
+            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+                NotFound();
+            if (!_tripRepository.TryGetLocation(trip.TripID, locationID, out var location))
+                NotFound();
 
 
-        //    return dto;
-        //}
+            var locationDTO = new LocationDTO
+            {
+                City = location.City,
+                Country = location.Country
+            };
+               
+            
+
+            return locationDTO;
+        }
 
         #endregion
 

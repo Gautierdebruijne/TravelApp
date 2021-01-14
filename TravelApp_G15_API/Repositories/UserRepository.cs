@@ -27,12 +27,12 @@ namespace TravelApp_G15_API.Repositories
                 .ToList();
         }
 
-        public bool TryGetUserByID(int id, out String email)
+        public bool TryGetUserIDbyEmail(String email, out int userID)
         {
-            var user = _users.FirstOrDefault(a => a.UserID == id);
-            email = user.Email;
+            var user = _users.FirstOrDefault(a => a.Email.Equals(email));
+            userID = user.UserID;
 
-            return email != null;
+            return user != null ;
         }
 
         public User GetByEmail(string email)
@@ -45,7 +45,9 @@ namespace TravelApp_G15_API.Repositories
         }
         public bool TryGetTrips(int id, out List<Trip> trips)
         {
-            var users = _users.Include(l => l.Trips).FirstOrDefault(a => a.UserID == id);
+            var users = _users.Include(l => l.Trips).ThenInclude(l => l.Locations)
+                               .Include(l => l.Trips).ThenInclude(l => l.Categories)
+                               .Include(l => l.Trips).ThenInclude(l => l.Items).FirstOrDefault(a => a.UserID == id);
             trips = users.Trips.ToList();
 
             return users != null;
@@ -53,7 +55,9 @@ namespace TravelApp_G15_API.Repositories
 
         public bool TryGetTrip(int id, int tripID, out Trip trip)
         {
-            var users = _users.Include(l => l.Trips).FirstOrDefault(a => a.UserID == id);
+            var users = _users.Include(l => l.Trips).ThenInclude(l => l.Locations)
+                               .Include(l => l.Trips).ThenInclude(l => l.Categories)
+                               .Include(l => l.Trips).ThenInclude(l => l.Items).FirstOrDefault(a => a.UserID == id);
             trip = users.Trips.FirstOrDefault(l => l.TripID == tripID);
 
             return trip != null;
