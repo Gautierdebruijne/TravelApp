@@ -191,6 +191,52 @@ namespace TravelApp_G15_API.Controllers
             return categoryDTO;
         }
 
+        [HttpGet("{userID}/{tripID}/items")]
+        public ActionResult<List<ItemDTO>> GetUserTripItems(int userID, int tripID)
+        {
+            List<ItemDTO> itemList = new List<ItemDTO>();
+
+            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+                NotFound();
+            if (!_tripRepository.TryGetItems(trip.TripID, out var items))
+                NotFound();
+
+            foreach (var l in items)
+            {
+                var dto = new ItemDTO
+                {
+                   Name = l.Name,
+                   Amount = l.Amount,
+                   Checked = l.Checked
+                };
+                itemList.Add(dto);
+            }
+
+            return itemList;
+        }
+
+        [HttpGet("{userID}/{tripID}/items/{itemID}")]
+        public ActionResult<ItemDTO> GetUserTripItem(int userID, int tripID, int itemID)
+        {
+
+            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+                NotFound();
+            if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
+                NotFound();
+
+
+            var itemDTO = new ItemDTO
+            {
+                Name = item.Name,
+                Amount = item.Amount,
+                Checked = item.Checked
+            };
+
+
+
+            return itemDTO;
+        }
+
         #endregion
 
         #region HttpPost
