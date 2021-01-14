@@ -22,6 +22,7 @@ namespace TravelApp_G15_API.Repositories
         public List<Trip> GetAll()
         {
             return _trips
+                .Include(l => l.Locations)
                 .Include(c => c.Categories)
                 .Include(i => i.Items)
                 .ToList();

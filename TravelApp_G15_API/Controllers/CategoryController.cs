@@ -26,6 +26,7 @@ namespace TravelApp_G15_API.Controllers
 
         #region HttpGet
         [HttpGet]
+        //getbyTripID
         public ActionResult<List<Category>> GetAll()
         {
             List<Category> c = _categoryRepository.GetAll();
