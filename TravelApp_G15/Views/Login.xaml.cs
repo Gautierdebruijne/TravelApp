@@ -90,10 +90,5 @@ namespace TravelApp_G15
         {
             this.Frame.Navigate(typeof(Register));
         }
-
-        private void btnPassword_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
