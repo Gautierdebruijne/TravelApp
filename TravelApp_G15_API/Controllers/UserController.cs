@@ -78,6 +78,25 @@ namespace TravelApp_G15_API.Controllers
             return tripList;
         }
 
+        [HttpGet("{userID}/{tripID}/trip")]
+        public ActionResult<TripDTO> GetUserTrips(int userID, int tripID)
+        {
+            TripDTO tripList = new TripDTO();
+
+            if (!_userRepository.TryGetTrip(userID, tripID,out var trip))
+                NotFound();
+
+                var dto = new TripDTO
+                {
+                    Name = trip.Name,
+                    Date = trip.Date
+                };
+
+                
+            return dto;
+        }
+
+
         #endregion
 
         #region HttpPost
