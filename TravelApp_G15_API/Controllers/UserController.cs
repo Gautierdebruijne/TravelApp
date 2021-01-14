@@ -149,6 +149,48 @@ namespace TravelApp_G15_API.Controllers
             return locationDTO;
         }
 
+        [HttpGet("{userID}/{tripID}/categories")]
+        public ActionResult<List<CategoryDTO>> GetUserTripCategories(int userID, int tripID)
+        {
+            List<CategoryDTO> categorieList = new List<CategoryDTO>();
+
+            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+                NotFound();
+            if (!_tripRepository.TryGetCategories(trip.TripID, out var categories))
+                NotFound();
+
+            foreach (var l in categories)
+            {
+                var dto = new CategoryDTO
+                {
+                   Name = l.Name
+                };
+                categorieList.Add(dto);
+            }
+
+            return categorieList;
+        }
+
+        [HttpGet("{userID}/{tripID}/categories/{categoryID}")]
+        public ActionResult<CategoryDTO> GetUserTripCategory(int userID, int tripID, int categoryID)
+        {
+
+            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+                NotFound();
+            if (!_tripRepository.TryGetCategory(trip.TripID, categoryID, out var category))
+                NotFound();
+
+
+            var categoryDTO = new CategoryDTO
+            {
+              Name = category.Name
+            };
+
+
+
+            return categoryDTO;
+        }
+
         #endregion
 
         #region HttpPost
