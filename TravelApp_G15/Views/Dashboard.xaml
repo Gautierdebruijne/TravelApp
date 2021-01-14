@@ -9,10 +9,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <NavigationView x:Name="NavigationView" SelectionChanged="NavigationView_SelectionChanged" AlwaysShowHeader="False">
+        <NavigationView x:Name="Navigation" IsPaneOpen="False" PaneOpened="Navigation_PaneOpened" Loaded="NavigationView_Loaded" 
+                        SelectionChanged="NavigationView_SelectionChanged" AlwaysShowHeader="False">
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Globe" Content="Vacations" Tag="vacations" />
-                <NavigationViewItem Icon="Document" Content="Bookings" Tag="bookings" />
+                <NavigationViewItemHeader x:Name="Menu" Content=""/>
+                <NavigationViewItem Icon="World" Content="Vacations" Tag="vacations" IsSelected="True"/>
+
+                <NavigationViewItemSeparator />
             </NavigationView.MenuItems>
         </NavigationView>
         <Frame x:Name="Content">
@@ -27,24 +30,35 @@
             <TextBlock Margin="60,91,525,0" Text="Welcome back, traveller!" TextWrapping="Wrap" FontFamily="Ink Free" FontSize="85" FontWeight="Bold" Height="131" VerticalAlignment="Top"/>
             <Rectangle Margin="1007,91,0,91" Stroke="Black" HorizontalAlignment="Left" Width="439"/>-->
 
-            <Grid.RowDefinitions>
+            <!--<Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition />
-            </Grid.RowDefinitions>
+            </Grid.RowDefinitions>-->
 
-            <Grid Grid.Row="1" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="100" />
                     <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
 
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
                 <Run FontWeight="SemiBold" Text="Welcome back, "></Run>
-                <Run Text="Gautier!" Foreground="#FF01A3ff"  FontWeight="Bold" x:Name="userName" />
+                <Run Text="Gautier!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
             </Grid>
-        </Grid>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="80">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="600" />
+                </Grid.RowDefinitions>
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="400" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock></TextBlock>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

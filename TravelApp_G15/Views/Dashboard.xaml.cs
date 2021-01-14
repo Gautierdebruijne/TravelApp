@@ -31,5 +31,17 @@ namespace TravelApp_G15.Views
         {
 
         }
+
+        private void NavigationView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var settings = (NavigationViewItem)Navigation.SettingsItem;
+            settings.Content = "Logout";
+            settings.Icon = new SymbolIcon((Symbol)0xE106);
+        }
+
+        private void Navigation_PaneOpened(NavigationView sender, object args)
+        {
+            Menu.Content = "Menu";
+        }
     }
 }
