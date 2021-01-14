@@ -27,6 +27,14 @@ namespace TravelApp_G15_API.Repositories
                 .ToList();
         }
 
+        public bool TryGetUserByID(int id, out String email)
+        {
+            var user = _users.FirstOrDefault(a => a.UserID == id);
+            email = user.Email;
+
+            return email != null;
+        }
+
         public User GetByEmail(string email)
         {
             return _users

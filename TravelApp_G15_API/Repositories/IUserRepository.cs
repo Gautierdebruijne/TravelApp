@@ -10,6 +10,7 @@ namespace TravelApp_G15_API.Repositories
     {
         User GetByEmail(string email);
         List<User> GetAll();
+        bool TryGetUserByID(int id, out String email);
         bool TryGetTrips(int userID, out List<Trip> trips);
         bool TryGetTrip(int userID, int tripID, out Trip trip);
         void Add(User u);
