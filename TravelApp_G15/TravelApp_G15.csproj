@@ -129,11 +129,13 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Register.cs" />
+    <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Models\Trip.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\TripViewModel.cs" />
     <Compile Include="Views\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>

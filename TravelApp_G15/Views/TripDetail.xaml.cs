@@ -26,8 +26,10 @@ namespace TravelApp_G15.Views
     public sealed partial class TripDetail : Page
     {
         private ICollection<Item> items;
+        private ICollection<TaskModel> tasks;
         private ICollection<Category> categories;
         private ItemViewModel itemViewModel;
+        private TaskViewModel taskViewModel;
 
         public TripDetail()
         {
@@ -36,8 +38,10 @@ namespace TravelApp_G15.Views
             items = new List<Item>();
             categories = new List<Category>();
             itemViewModel = new ItemViewModel();
+            taskViewModel = new TaskViewModel();
 
             GetAllItems(itemViewModel);
+            GetAllTasks(taskViewModel);
         }
 
         private void Navigation_PaneOpened(NavigationView sender, object args)
@@ -58,6 +62,8 @@ namespace TravelApp_G15.Views
                 switch (item.Tag.ToString())
                 {
                     case "Vacations": this.Frame.Navigate(typeof(Dashboard)); break;
+                    case "Items": this.Frame.Navigate(typeof(TripDetail)); break;
+                    case "Tasks": this.Frame.Navigate(typeof(TripDetail)); break;
                 }
             }
         }
@@ -77,6 +83,16 @@ namespace TravelApp_G15.Views
 
             items = viewModel.Items;
             ItemList.ItemsSource = items;
+        }
+
+        private async void GetAllTasks(TaskViewModel viewModel)
+        {
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+            await viewModel.GetAllTasks(tripID);
+
+            tasks = viewModel.Tasks;
+            TaskList.ItemsSource = tasks;
         }
     }
 }

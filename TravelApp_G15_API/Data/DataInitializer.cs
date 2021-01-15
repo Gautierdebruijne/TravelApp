@@ -31,6 +31,7 @@ namespace TravelApp_G15_API.Data
                 ICollection<Location> locationsFrankrijk = new List<Location>();
                 ICollection<Location> locationsDuitsland = new List<Location>();
                 ICollection<Item> itemsA = new List<Item>();
+                ICollection<Models.Task> tasksA = new List<Models.Task>();
                 #endregion
 
                 #region Roles
@@ -84,9 +85,16 @@ namespace TravelApp_G15_API.Data
                 itemsA.Add(itemGsm);
                 #endregion
 
+                #region Tasks
+                var taskOne = new Models.Task() { Name = "Vergeet zeker niet te gaan tanken!" };
+                var taskTwo = new Models.Task() { Name = "Geld afhalen voor vertrek!" };
+                tasksA.Add(taskOne);
+                tasksA.Add(taskTwo);
+                #endregion
+
                 #region Trip 
-                var tripFrankrijk = new Trip() { Name = "Frankrijk - chillreisje", Date = new DateTime(2021, 07, 22), Locations = locationsFrankrijk, Categories = categoriesA, Items = itemsA };
-                var tripDuitsland = new Trip() { Name = "Duitsland - Hoofdstad bezoeken", Date = new DateTime(2021, 07, 22), Locations = locationsDuitsland, Categories = categoriesA, Items = itemsA };
+                var tripFrankrijk = new Trip() { Name = "Frankrijk - chillreisje", Date = new DateTime(2021, 07, 22), Locations = locationsFrankrijk, Categories = categoriesA, Items = itemsA, Tasks = tasksA };
+                var tripDuitsland = new Trip() { Name = "Duitsland - Hoofdstad bezoeken", Date = new DateTime(2021, 07, 22), Locations = locationsDuitsland, Categories = categoriesA, Items = itemsA, Tasks = tasksA };
                 tripsA.Add(tripFrankrijk);
                 tripsA.Add(tripDuitsland);
 

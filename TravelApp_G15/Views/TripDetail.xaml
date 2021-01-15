@@ -37,12 +37,17 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
                     <Run FontWeight="SemiBold" Text="It's time to"></Run>
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
 
-                <ListView x:Name="ItemList" HorizontalAlignment="Center" Grid.Row="2">
+                <ListView x:Name="ItemList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -71,6 +76,44 @@
                                         Grid.Row="1"
                                         Margin="15 0 15 15"
                                         FontSize="15"/>
+                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding Checked}">
+                                        <SymbolIcon Symbol="Edit"/>
+                                    </CheckBox>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ListView x:Name="TaskList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:TaskModel">
+                            <StackPanel HorizontalAlignment="Left" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="{Binding Name}" 
+                                        Grid.Column="1"
+                                        Width="auto" 
+                                        Grid.Row="0"
+                                        Margin="15"
+                                        FontSize="20"
+                                        FontWeight="Bold"/>
+                                    <!--<TextBlock Text="{Binding Amount}"
+                                        Grid.Column="1"
+                                        Width="auto" 
+                                        Grid.Row="1"
+                                        Margin="15 0 15 15"
+                                        FontSize="15"/>-->
                                     <CheckBox Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding Checked}">
                                         <SymbolIcon Symbol="Edit"/>
                                     </CheckBox>
