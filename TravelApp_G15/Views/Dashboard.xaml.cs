@@ -24,18 +24,16 @@ namespace TravelApp_G15.Views
     /// </summary>
     public sealed partial class Dashboard : Page
     {
-        private ICollection<Trip> _trips = new List<Trip>();
+        private ICollection<Trip> _trips;
         private TripViewModel tripViewModel;
-        private LoginViewModel loginViewModel = new LoginViewModel();
 
         public Dashboard()
         {
             this.InitializeComponent();
-
             tripViewModel = new TripViewModel();
+            _trips = new List<Trip>();
 
-            //GetAllTrips(tripViewModel, loginViewModel);
-            _trips = tripViewModel.Trips;
+            GetAllTrips(tripViewModel);
         }
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -67,10 +65,12 @@ namespace TravelApp_G15.Views
             Menu.Content = "Menu";
         }
 
-        private async void GetAllTrips(TripViewModel tripViewModel)
+        private async void GetAllTrips(TripViewModel viewModel)
         {
-            //string userID = loginViewModel.GetUserId(loginViewModel.LoggedInUser.Email).ToString();
-            //await tripViewModel.GetAllTrips(userID);
+            await viewModel.GetAllTrips();
+            _trips = viewModel.Trips;
+
+            Vacations.ItemsSource = _trips;
         }
     }
 }

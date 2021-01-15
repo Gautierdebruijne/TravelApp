@@ -15,7 +15,6 @@ namespace TravelApp_G15.ViewModels
     {
         public bool Success { get; set; } = false;
         private HttpClient _client;
-        public User LoggedInUser { get; set; }
 
         public LoginViewModel()
         {
@@ -25,12 +24,10 @@ namespace TravelApp_G15.ViewModels
             };
 
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
-            var token = "Bearer" + local.Values["token"];
+            var token = "Bearer " + local.Values["token"];
 
             _client = new HttpClient(clientHandler);
             _client.DefaultRequestHeaders.Add("Authorization", token);
-
-            LoggedInUser = new User();
         }
 
         public async Task<String> Login(string email, string password)
@@ -50,22 +47,9 @@ namespace TravelApp_G15.ViewModels
                 local.Values["token"] = json.ToString();
 
                 Success = true;
-                LoggedInUser.Email = email;
             }
 
             return res.Content.ToString();
-        }
-
-        public async Task<int> GetUserId()
-        {
-            var email = LoggedInUser.Email;
-
-            var url = "https://localhost:5001/api/User/" + email;
-            var json = await _client.GetStringAsync(url);
-            var user = JsonConvert.DeserializeObject<User>(json);
-
-            LoggedInUser.UserID = user.UserID;
-            return user.UserID;
         }
     }
 }

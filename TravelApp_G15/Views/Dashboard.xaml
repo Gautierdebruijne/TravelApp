@@ -57,7 +57,9 @@
                     <ColumnDefinition Width="400" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock></TextBlock>
+                <GridView x:Name="Vacations" ItemsSource="">
+                    
+                </GridView>
             </Grid>
         </Grid>
     </Grid>

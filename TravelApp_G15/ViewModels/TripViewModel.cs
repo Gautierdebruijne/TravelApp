@@ -23,7 +23,7 @@ namespace TravelApp_G15.ViewModels
             };
 
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
-            var token = "Bearer" + local.Values["token"];
+            var token = "Bearer " + local.Values["token"];
 
             _client = new HttpClient(clientHandler);
             _client.DefaultRequestHeaders.Add("Authorization", token);
@@ -31,9 +31,9 @@ namespace TravelApp_G15.ViewModels
             Trips = new List<Trip>();
         }
 
-        public async Task GetAllTrips(string userID)
+        public async Task GetAllTrips()
         {
-            var url = "https://localhost:5001/api/User/" + userID + "/trips";
+            var url = "https://localhost:5001/api/User/trips";
             var json = await _client.GetStringAsync(url);
             var trips = JsonConvert.DeserializeObject<ICollection<Trip>>(json);
 
