@@ -25,14 +25,17 @@ namespace TravelApp_G15_API.Repositories
                 .Include(l => l.Locations)
                 .Include(c => c.Categories)
                 .Include(i => i.Items)
+                .Include(t => t.Tasks)
                 .ToList();
         }
 
         public Trip GetById(int id)
         {
             return _trips
+            .Include(l => l.Locations)
                 .Include(c => c.Categories)
                 .Include(i => i.Items)
+                .Include(t => t.Tasks)
                 .FirstOrDefault(t => t.TripID == id);
         }
 
@@ -85,6 +88,22 @@ namespace TravelApp_G15_API.Repositories
             return item != null;
         }
 
+        public bool TryGetTasks(int id, out List<Models.Task> tasks)
+        {
+            var trip = _trips.Include(l => l.Tasks).FirstOrDefault(a => a.TripID == id);
+            tasks = trip.Tasks.ToList();
+
+            return tasks != null;
+        }
+
+
+        public bool TryGetTask(int id, int taskID, out Models.Task task)
+        {
+            var trip = _trips.Include(l => l.Tasks).FirstOrDefault(a => a.TripID == id);
+            task = trip.Tasks.FirstOrDefault(l => l.TaskID == taskID);
+
+            return task != null;
+        }
 
         public void AddTrip(Trip t)
         {

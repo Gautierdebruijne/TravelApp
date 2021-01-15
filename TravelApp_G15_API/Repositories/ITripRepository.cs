@@ -18,6 +18,8 @@ namespace TravelApp_G15_API.Repositories
         bool TryGetLocations(int tripID, out List<Location> locations);
         bool TryGetItem(int tripID, int itemID, out Item item);
         bool TryGetItems(int tripID, out List<Item> items);
+        bool TryGetTask(int tripID, int taskID, out Models.Task task);
+        bool TryGetTasks(int tripID, out List<Models.Task> tasks);
 
 
 

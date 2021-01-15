@@ -20,7 +20,7 @@ namespace TravelApp_G15_API.Data
             _roleManager = roleManager;
         }
 
-        public async Task InitalizeData()
+        public async System.Threading.Tasks.Task InitalizeData()
         {
             _context.Database.EnsureDeleted();
             if (_context.Database.EnsureCreated())
