@@ -27,7 +27,7 @@ namespace TravelApp_G15_API.Controllers
         }
 
         
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet]
         public ActionResult<List<Trip>> GetAll()
         {
