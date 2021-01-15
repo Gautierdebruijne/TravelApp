@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,21 +23,29 @@ namespace TravelApp_G15.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Dashboard : Page
+    public sealed partial class TripDetail : Page
     {
-        private ICollection<Trip> _trips;
-        private TripViewModel tripViewModel;
+        private ICollection<Item> items;
+        private ICollection<Category> categories;
+        private ItemViewModel itemViewModel;
 
-        public Dashboard()
+        public TripDetail()
         {
             this.InitializeComponent();
-            tripViewModel = new TripViewModel();
-            _trips = new List<Trip>();
 
-            GetAllTrips(tripViewModel);
+            items = new List<Item>();
+            categories = new List<Category>();
+            itemViewModel = new ItemViewModel();
+
+            GetAllItems(itemViewModel);
         }
 
-        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void Navigation_PaneOpened(NavigationView sender, object args)
+        {
+            Menu.Content = "Menu";
+        }
+
+        private void Navigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             if (args.IsSettingsSelected)
             {
@@ -55,34 +62,21 @@ namespace TravelApp_G15.Views
             }
         }
 
-        private void NavigationView_Loaded(object sender, RoutedEventArgs e)
+        private void Navigation_Loaded(object sender, RoutedEventArgs e)
         {
             var settings = (NavigationViewItem)Navigation.SettingsItem;
             settings.Content = "Logout";
             settings.Icon = new SymbolIcon((Symbol)0xE106);
         }
 
-        private void Navigation_PaneOpened(NavigationView sender, object args)
+        private async void GetAllItems(ItemViewModel viewModel)
         {
-            Menu.Content = "Menu";
-        }
-
-        private async void GetAllTrips(TripViewModel viewModel)
-        {
-            await viewModel.GetAllTrips();
-            _trips = viewModel.Trips;
-
-            Vacations.ItemsSource = _trips;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var tripID = (sender as Button).Tag;
-
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
-            local.Values["tripID"] = tripID;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+            await viewModel.GetAllItems(tripID);
 
-            this.Frame.Navigate(typeof(TripDetail));
+            items = viewModel.Items;
+            ItemList.ItemsSource = items;
         }
     }
 }
