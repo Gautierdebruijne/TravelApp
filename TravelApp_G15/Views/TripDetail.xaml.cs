@@ -30,6 +30,7 @@ namespace TravelApp_G15.Views
         private ICollection<Category> categories;
         private ItemViewModel itemViewModel;
         private TaskViewModel taskViewModel;
+        private CategoryViewModel catViewModel;
 
         public TripDetail()
         {
@@ -39,9 +40,11 @@ namespace TravelApp_G15.Views
             categories = new List<Category>();
             itemViewModel = new ItemViewModel();
             taskViewModel = new TaskViewModel();
+            catViewModel = new CategoryViewModel();
 
             GetAllItems(itemViewModel);
             GetAllTasks(taskViewModel);
+            GetAllCategories(catViewModel);
         }
 
         private void Navigation_PaneOpened(NavigationView sender, object args)
@@ -64,6 +67,7 @@ namespace TravelApp_G15.Views
                     case "Vacations": this.Frame.Navigate(typeof(Dashboard)); break;
                     case "Items": this.Frame.Navigate(typeof(TripDetail)); break;
                     case "Tasks": this.Frame.Navigate(typeof(TripDetail)); break;
+                    case "Categories": this.Frame.Navigate(typeof(TripDetail)); break;
                 }
             }
         }
@@ -93,6 +97,16 @@ namespace TravelApp_G15.Views
 
             tasks = viewModel.Tasks;
             TaskList.ItemsSource = tasks;
+        }
+
+        private async void GetAllCategories(CategoryViewModel viewModel)
+        {
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+            await viewModel.GetAllCategories(tripID);
+
+            categories = viewModel.Categories;
+            CatList.ItemsSource = categories;
         }
     }
 }
