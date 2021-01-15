@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TravelApp_G15.Models;
+using TravelApp_G15.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,14 +24,35 @@ namespace TravelApp_G15.Views
     /// </summary>
     public sealed partial class Dashboard : Page
     {
+        private ICollection<Trip> _trips = new List<Trip>();
+        private TripViewModel tripViewModel;
+        private LoginViewModel loginViewModel = new LoginViewModel();
+
         public Dashboard()
         {
             this.InitializeComponent();
+
+            tripViewModel = new TripViewModel();
+
+            //GetAllTrips(tripViewModel, loginViewModel);
+            _trips = tripViewModel.Trips;
         }
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
+            if (args.IsSettingsSelected)
+            {
+                this.Frame.Navigate(typeof(Login));
+            }
+            else
+            {
+                NavigationViewItem item = args.SelectedItem as NavigationViewItem;
 
+                switch (item.Tag.ToString())
+                {
+                    case "Vacations": this.Frame.Navigate(typeof(Dashboard)); break;
+                }
+            }
         }
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)
@@ -42,6 +65,12 @@ namespace TravelApp_G15.Views
         private void Navigation_PaneOpened(NavigationView sender, object args)
         {
             Menu.Content = "Menu";
+        }
+
+        private async void GetAllTrips(TripViewModel tripViewModel)
+        {
+            //string userID = loginViewModel.GetUserId(loginViewModel.LoggedInUser.Email).ToString();
+            //await tripViewModel.GetAllTrips(userID);
         }
     }
 }

@@ -27,7 +27,8 @@
                 <Run Text="Traveller!" Foreground="#FF01A3ff"  FontWeight="Bold" x:Name="userName" />
             </TextBlock>
 
-            <TextBox x:Name="txtEmail"
+            <TextBox x:Name="txtEmail" Tag="{Binding Email}"
+                TextChanged="txtEmail_TextChanged"
                 Grid.Row="1" 
                 PlaceholderText="Email"
                 FontSize="30" 

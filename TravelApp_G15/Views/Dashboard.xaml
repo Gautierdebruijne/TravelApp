@@ -42,7 +42,7 @@
 
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
                 <Run FontWeight="SemiBold" Text="Welcome back, "></Run>
-                <Run Text="Gautier!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
+                <Run Text="{Binding Name}" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
             </Grid>
             <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="80">
