@@ -14,7 +14,7 @@ namespace TravelApp_G15_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Customer")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Customer")]
     public class TripController : ControllerBase
     {
         private readonly ITripRepository _tripRepository;
@@ -27,7 +27,7 @@ namespace TravelApp_G15_API.Controllers
         }
 
         
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet]
         public ActionResult<List<Trip>> GetAll()
         {

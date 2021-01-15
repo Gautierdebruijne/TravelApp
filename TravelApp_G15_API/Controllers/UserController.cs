@@ -51,7 +51,7 @@ namespace TravelApp_G15_API.Controllers
 
         #region HttpGet
         [HttpGet]
-       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public ActionResult<List<User>> GetUserByEmail()
         {
             List<User> u = _userRepository.GetAll();
@@ -263,13 +263,12 @@ namespace TravelApp_G15_API.Controllers
             return BadRequest();
         }
 
-        [AllowAnonymous]
+/*        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<ActionResult<String>> Register(RegisterDTO model)
         {
             IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
             u = new User() { Name = model.Name, Email = model.Email };
-
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
@@ -291,6 +290,37 @@ namespace TravelApp_G15_API.Controllers
 
             return BadRequest();
         }
+*/
+        [AllowAnonymous]
+        [HttpPost("Register")]
+        public async Task<ActionResult<ActionResult<string>>> RegisterAsync(RegisterDTO model)
+        {
+            IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
+            u = new User() { Name = model.Name, Email = model.Email };
+
+            var result = await _userManager.CreateAsync(user, "EssentialsE2!");
+
+            if (result.Succeeded)
+            {
+                await _roleManager.CreateAsync(new IdentityRole(model.Role));
+                result = await _userManager.AddToRoleAsync(user, model.Role);
+
+                if (result.Succeeded)
+                {
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    _userRepository.Add(u);
+                    _userRepository.SaveChanges();
+
+                    string token = GetToken(user, roles);
+                    return Created("", token);
+                }
+            }
+
+            return BadRequest();
+        }
+
+
 
         private string GetToken(IdentityUser user, IList<string> roles)
         {
@@ -311,6 +341,67 @@ namespace TravelApp_G15_API.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        #endregion
+
+        #region Post
+        [HttpPost("{tripID}/addTrip")]
+        public IActionResult AddTrip(TripDTO t)
+        {
+            Trip trip = new Trip() { Name = t.Name, Date = t.Date };
+            getLoggedUser().AddTrip(trip);
+            _userRepository.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpPost("{tripID}/addCategorie")]
+        public IActionResult AddCategorie(int tripID, CategoryDTO categoryDTO)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NotFound();
+            var categorie = new Category() { Name = categoryDTO.Name };
+            trip.AddCategory(categorie);
+            _tripRepository.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpPost("{tripID}/addItem")]
+        public IActionResult AddItem(int tripID, ItemDTO itemDTO)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NotFound();
+            var item = new Item() { Name = itemDTO.Name, Amount = itemDTO.Amount, Category = null,  Checked = false};
+            trip.AddItem(item);
+            _tripRepository.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpPost("{tripID}/addLocation")]
+        public IActionResult AddLocation(int tripID, LocationDTO locationDTO)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NotFound();
+            var location = new Location() { Country = locationDTO.Country, City = locationDTO.City };
+            trip.AddLocation(location);
+            _tripRepository.SaveChanges();
+            return NoContent();
+        }
+
+
+    /*    [HttpPost("{tripID}/{categorieID}/Categorie/{itemID}/addItemToCategorie")]
+        public IActionResult AddItemToCategorie(int tripID, int categorieID, int itemID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NotFound();
+            if (!_tripRepository.TryGetCategory(trip.TripID, categorieID, out var category))
+                return NotFound();
+            if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
+                return NotFound();
+          
+            item.Category = category; 
+            _tripRepository.SaveChanges();
+            return NoContent();
+        }*/
+
         #endregion
     }
 }
