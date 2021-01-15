@@ -7,6 +7,7 @@ using TravelApp_G15.Models;
 using TravelApp_G15.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -71,6 +73,16 @@ namespace TravelApp_G15.Views
             _trips = viewModel.Trips;
 
             Vacations.ItemsSource = _trips;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var tripID = (sender as Button).Tag;
+
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            local.Values["tripID"] = tripID;
+
+            //this.Frame.Navigate(typeof(TripDetail));
         }
     }
 }

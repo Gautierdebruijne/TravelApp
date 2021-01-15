@@ -5,6 +5,7 @@
     xmlns:local="using:TravelApp_G15.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:TravelApp_G15.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -25,6 +26,7 @@
                 </TransitionCollection>
             </Frame.ContentTransitions>
         </Frame>
+
         <Grid>
             <!--<Image Source="Assets/background.jpg" x:Name="background" Margin="10,339,508,1"/>
             <TextBlock Margin="60,91,525,0" Text="Welcome back, traveller!" TextWrapping="Wrap" FontFamily="Ink Free" FontSize="85" FontWeight="Bold" Height="131" VerticalAlignment="Top"/>
@@ -38,28 +40,52 @@
             <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
-                <Run FontWeight="SemiBold" Text="Welcome back, "></Run>
-                <Run Text="{Binding Name}" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
+                    <Run FontWeight="SemiBold" Text="It's time to"></Run>
+                    <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
-            </Grid>
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="80">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="600" />
-                </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400" />
-                    <ColumnDefinition Width="400" />
-                    <ColumnDefinition Width="400" />
-                </Grid.ColumnDefinitions>
+                <ListView x:Name="Vacations" HorizontalAlignment="Center" Grid.Row="2">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
 
-                <GridView x:Name="Vacations" ItemsSource="">
-                    
-                </GridView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:Trip">
+                            <StackPanel HorizontalAlignment="Left" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <TextBlock Text="{Binding Name}" 
+                                        Grid.Column="1"
+                                        Width="auto" 
+                                        Grid.Row="0"
+                                        Margin="15"
+                                        FontSize="20"
+                                        FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Date}"
+                                        Grid.Column="1"
+                                        Width="auto" 
+                                        Grid.Row="1"
+                                        Margin="15 0 15 15"
+                                        FontSize="15"/>
+                                    <Button Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Click="Button_Click" Tag="{Binding TripID}">
+                                        <SymbolIcon Symbol="Edit"/>
+                                    </Button>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Grid>
     </Grid>
