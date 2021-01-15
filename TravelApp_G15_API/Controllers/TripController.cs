@@ -20,6 +20,7 @@ namespace TravelApp_G15_API.Controllers
         private readonly ITripRepository _tripRepository;
         private readonly IUserRepository _userRepository;
 
+
         public TripController(ITripRepository tripRepo, IUserRepository userRepo)
         {
             _tripRepository = tripRepo;

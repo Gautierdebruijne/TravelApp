@@ -239,6 +239,53 @@ namespace TravelApp_G15_API.Controllers
             return item;
         }
 
+        [HttpGet("{tripID}/task/{taskID}")]
+        public ActionResult<Models.Task> GetUserTripTask(int tripID, int taskID)
+        {
+
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                NotFound();
+            if (!_tripRepository.TryGetTask(trip.TripID, taskID, out var task))
+                NotFound();
+
+
+            /*        var itemDTO = new ItemDTO
+                    {
+                        Name = item.Name,
+                        Amount = item.Amount,
+                        Checked = item.Checked
+                    };*/
+
+
+
+            return task;
+        }
+
+        [HttpGet("{tripID}/tasks")]
+        public ActionResult<List<Models.Task>> GetUserTripTasks(int tripID)
+        {
+            //List<ItemDTO> itemList = new List<ItemDTO>();
+
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                NotFound();
+            if (!_tripRepository.TryGetTasks(trip.TripID, out var tasks))
+                NotFound();
+            /*
+                        foreach (var l in items)
+                        {
+                            var dto = new ItemDTO
+                            {
+                               Name = l.Name,
+                               Amount = l.Amount,
+                               Checked = l.Checked
+                            };
+                            itemList.Add(dto);
+                        }*/
+
+            return tasks;
+        }
+
+
         #endregion
 
         #region HttpPost
@@ -385,21 +432,94 @@ namespace TravelApp_G15_API.Controllers
             return NoContent();
         }
 
-
-    /*    [HttpPost("{tripID}/{categorieID}/Categorie/{itemID}/addItemToCategorie")]
-        public IActionResult AddItemToCategorie(int tripID, int categorieID, int itemID)
+        [HttpPost("{tripID}/addTask")]
+        public IActionResult AddTask(int tripID, TaskDTO taskDTO)
         {
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 return NotFound();
-            if (!_tripRepository.TryGetCategory(trip.TripID, categorieID, out var category))
-                return NotFound();
-            if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
-                return NotFound();
-          
-            item.Category = category; 
+            var task = new Models.Task() { Name = taskDTO.Name, isChecked = taskDTO.isChecked };
+            trip.AddTask(task);
             _tripRepository.SaveChanges();
             return NoContent();
-        }*/
+        }
+
+
+
+
+        /*    [HttpPost("{tripID}/{categorieID}/Categorie/{itemID}/addItemToCategorie")]
+            public IActionResult AddItemToCategorie(int tripID, int categorieID, int itemID)
+            {
+                if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                    return NotFound();
+                if (!_tripRepository.TryGetCategory(trip.TripID, categorieID, out var category))
+                    return NotFound();
+                if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
+                    return NotFound();
+
+                item.Category = category; 
+                _tripRepository.SaveChanges();
+                return NoContent();
+            }*/
+
+        #endregion
+        #region Delete
+
+        [HttpDelete("{tripID}/Items/{itemID}")]
+        public IActionResult DeleteItem(int tripID, int itemID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+            if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
+                return NoContent();
+
+              trip.RemoveItem(item);
+            _tripRepository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{tripID}/Category/{categoryID}")]
+        public IActionResult DeleteCategory(int tripID, int categoryID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+            if (!_tripRepository.TryGetCategory(trip.TripID, categoryID, out var category))
+                return NoContent();
+
+            trip.RemoveCategory(category);
+            _tripRepository.SaveChanges();
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("{tripID}/Location/{locationID}")]
+        public IActionResult DeleteLocation(int tripID, int locationID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+            if (!_tripRepository.TryGetLocation(trip.TripID, locationID, out var location))
+                return NoContent();
+
+            trip.RemoveLocation(location);
+            _tripRepository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{tripID}/Task/{taskID}")]
+        public IActionResult DeleteTask(int tripID, int taskID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+            if (!_tripRepository.TryGetTask(trip.TripID, taskID, out var task))
+                return NoContent();
+
+            trip.RemoveTask(task);
+            _tripRepository.SaveChanges();
+
+            return NoContent();
+        }
 
         #endregion
     }
