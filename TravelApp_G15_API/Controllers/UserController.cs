@@ -58,7 +58,6 @@ namespace TravelApp_G15_API.Controllers
             return u;
         }
 
-
         [HttpGet("trips")]
         public ActionResult<List<Trip>> GetUserTrips()
         {

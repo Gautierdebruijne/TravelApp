@@ -75,7 +75,6 @@ namespace TravelApp_G15
                 if (loginvm.Success)
                 {
                     this.Frame.Navigate(typeof(Dashboard));
-                    await loginvm.GetUserId();
                 }
                 else
                 {
@@ -91,11 +90,6 @@ namespace TravelApp_G15
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Register));
-        }
-
-        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
         }
     }
 }
