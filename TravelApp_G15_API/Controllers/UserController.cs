@@ -44,7 +44,10 @@ namespace TravelApp_G15_API.Controllers
             _config = config;
         }
 
-
+        private User getLoggedUser()
+        {
+            return _userRepository.GetByEmail(User.Identity.Name);
+        }
 
         #region HttpGet
         [HttpGet]
@@ -56,12 +59,12 @@ namespace TravelApp_G15_API.Controllers
         }
 
 
-        [HttpGet("{userID}/trips")]
-        public ActionResult<List<Trip>> GetUserTrips(int userID)
+        [HttpGet("trips")]
+        public ActionResult<List<Trip>> GetUserTrips()
         {
             //List<Trip> tripList = new List<Trip>();
 
-            if (!_userRepository.TryGetTrips(userID, out var trips))
+            if (!_userRepository.TryGetTrips(getLoggedUser().UserID, out var trips))
                 NotFound();
 
         /*    foreach(var t in trips)
@@ -78,12 +81,12 @@ namespace TravelApp_G15_API.Controllers
             return trips;
         }
 
-        [HttpGet("{userID}/{tripID}/trip")]
-        public ActionResult<Trip> GetUserTrips(int userID, int tripID)
+        [HttpGet("{tripID}/trip")]
+        public ActionResult<Trip> GetUserTrips(int tripID)
         {
            
 
-            if (!_userRepository.TryGetTrip(userID, tripID,out var trip))
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID,out var trip))
                 NotFound();
 
       /*          var dto = new TripDTO
@@ -105,12 +108,12 @@ namespace TravelApp_G15_API.Controllers
             return userID;
         }
 
-        [HttpGet("{userID}/{tripID}/locations")]
-        public ActionResult<List<Location>> GetUserTripLocations(int userID, int tripID)
+        [HttpGet("{tripID}/locations")]
+        public ActionResult<List<Location>> GetUserTripLocations(int tripID)
         {
             //List<LocationDTO> locationList = new List<LocationDTO>();
 
-            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetLocations(trip.TripID, out var locations))
                 NotFound();
@@ -128,11 +131,11 @@ namespace TravelApp_G15_API.Controllers
             return locations;
         }
 
-        [HttpGet("{userID}/{tripID}/locations/{locationID}")]
-        public ActionResult<Location> GetUserTripLocation(int userID, int tripID, int locationID)
+        [HttpGet("{tripID}/locations/{locationID}")]
+        public ActionResult<Location> GetUserTripLocation(int tripID, int locationID)
         {
           
-            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetLocation(trip.TripID, locationID, out var location))
                 NotFound();
@@ -149,12 +152,12 @@ namespace TravelApp_G15_API.Controllers
             return location;
         }
 
-        [HttpGet("{userID}/{tripID}/categories")]
-        public ActionResult<List<Category>> GetUserTripCategories(int userID, int tripID)
+        [HttpGet("{tripID}/categories")]
+        public ActionResult<List<Category>> GetUserTripCategories(int tripID)
         {
             //List<CategoryDTO> categorieList = new List<CategoryDTO>();
 
-            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetCategories(trip.TripID, out var categories))
                 NotFound();
@@ -171,11 +174,11 @@ namespace TravelApp_G15_API.Controllers
             return categories;
         }
 
-        [HttpGet("{userID}/{tripID}/categories/{categoryID}")]
-        public ActionResult<Category> GetUserTripCategory(int userID, int tripID, int categoryID)
+        [HttpGet("{tripID}/categories/{categoryID}")]
+        public ActionResult<Category> GetUserTripCategory( int tripID, int categoryID)
         {
 
-            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetCategory(trip.TripID, categoryID, out var category))
                 NotFound();
@@ -191,12 +194,12 @@ namespace TravelApp_G15_API.Controllers
             return category;
         }
 
-        [HttpGet("{userID}/{tripID}/items")]
-        public ActionResult<List<Item>> GetUserTripItems(int userID, int tripID)
+        [HttpGet("{tripID}/items")]
+        public ActionResult<List<Item>> GetUserTripItems( int tripID)
         {
             //List<ItemDTO> itemList = new List<ItemDTO>();
 
-            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetItems(trip.TripID, out var items))
                 NotFound();
@@ -215,11 +218,11 @@ namespace TravelApp_G15_API.Controllers
             return items;
         }
 
-        [HttpGet("{userID}/{tripID}/items/{itemID}")]
-        public ActionResult<Item> GetUserTripItem(int userID, int tripID, int itemID)
+        [HttpGet("{tripID}/items/{itemID}")]
+        public ActionResult<Item> GetUserTripItem(int tripID, int itemID)
         {
 
-            if (!_userRepository.TryGetTrip(userID, tripID, out var trip))
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
                 NotFound();
