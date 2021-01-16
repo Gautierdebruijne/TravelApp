@@ -25,6 +25,7 @@ namespace TravelApp_G15_API.Repositories
 
         void AddTrip(Trip t);
         void DeleteTrip(Trip t);
+        void UpdateTrip(Trip t);
         void SaveChanges();
     }
 }
