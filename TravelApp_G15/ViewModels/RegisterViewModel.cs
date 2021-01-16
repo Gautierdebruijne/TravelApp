@@ -22,10 +22,10 @@ namespace TravelApp_G15.ViewModels
             var client = new HttpClient(clientHandler);
 
             var register = new Register(name, email, password, passwordconfirmation);
-            var jsonLogin = JsonConvert.SerializeObject(register);
+            var jsonRegister = JsonConvert.SerializeObject(register);
             var url = "https://localhost:5001/api/User/Register";
             //var url = "https://travelappg15api.azurewebsites.net/api/User/Register";
-            var data = new StringContent(jsonLogin, Encoding.UTF8, "application/json");
+            var data = new StringContent(jsonRegister, Encoding.UTF8, "application/json");
             var res = await client.PostAsync(url, data);
             var json = await res.Content.ReadAsStringAsync();
 
