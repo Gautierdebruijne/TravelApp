@@ -14,7 +14,6 @@ namespace TravelApp_G15.ViewModels
     {
         public List<TaskModel> Tasks;
         private HttpClient _client;
-        int tripID;
 
         public TaskViewModel()
         {
@@ -31,8 +30,6 @@ namespace TravelApp_G15.ViewModels
 
             Tasks = new List<TaskModel>();
 
-            ApplicationDataContainer localSettings2 = Windows.Storage.ApplicationData.Current.LocalSettings;
-            tripID = Int32.Parse(localSettings2.Values["tripID"].ToString());
         }
 
         public async Task GetAllTasks(int tripID)
@@ -45,7 +42,7 @@ namespace TravelApp_G15.ViewModels
                 Tasks.Add(t);
         }
 
-        public async Task AddTask(string name)
+        public async Task AddTask(string name, int tripID)
         {
             TaskModel task = new TaskModel() { Name = name, Checked = false };
             var taskJson = JsonConvert.SerializeObject(task);
@@ -67,7 +64,7 @@ namespace TravelApp_G15.ViewModels
             var res = await _client.PutAsync(url, new StringContent(taskJson, Encoding.UTF8, "application/json"));
         }*/
 
-        public async Task DeleteTaskAsync(int taskID)
+        public async Task DeleteTaskAsync(int taskID, int tripID)
         {
             var url = "https://localhost:5001/api/User/" + tripID + "/Task/" + taskID;
 
