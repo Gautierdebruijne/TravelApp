@@ -11,7 +11,7 @@
 
     <Grid>
         <NavigationView x:Name="Navigation" IsPaneOpen="False" PaneOpened="Navigation_PaneOpened" Loaded="NavigationView_Loaded" 
-                        SelectionChanged="NavigationView_SelectionChanged" AlwaysShowHeader="False">
+                        SelectionChanged="NavigationView_SelectionChanged" AlwaysShowHeader="False"  IsBackEnabled="True" BackRequested="NavView_BackRequested">
             <NavigationView.MenuItems>
                 <NavigationViewItemHeader x:Name="Menu" Content=""/>
                 <NavigationViewItem Icon="World" Content="Vacations" Tag="vacations" IsSelected="True"/>

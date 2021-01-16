@@ -108,5 +108,9 @@ namespace TravelApp_G15.Views
             categories = viewModel.Categories;
             CatList.ItemsSource = categories;
         }
+        private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (this.Frame.CanGoBack) this.Frame.GoBack();
+        }
     }
 }
