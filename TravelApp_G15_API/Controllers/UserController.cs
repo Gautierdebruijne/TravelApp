@@ -63,7 +63,7 @@ namespace TravelApp_G15_API.Controllers
         {
 
             if (!_userRepository.TryGetTrips(getLoggedUser().UserID, out var trips))
-                NotFound();
+                return NotFound();
 
 
 
@@ -76,7 +76,7 @@ namespace TravelApp_G15_API.Controllers
            
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID,out var trip))
-                NotFound();
+                return NotFound();
 
 
 
@@ -88,7 +88,7 @@ namespace TravelApp_G15_API.Controllers
         public ActionResult<int> GetUserIDbyEmail(String email)
         {
             if (!_userRepository.TryGetUserIDbyEmail(email, out var userID))
-                NotFound();
+                return NotFound();
 
             return userID;
         }
@@ -98,9 +98,9 @@ namespace TravelApp_G15_API.Controllers
         {
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                NotFound();
+                return NotFound();
             if (!_tripRepository.TryGetLocations(trip.TripID, out var locations))
-                NotFound();
+                return NotFound();
 
 
             return locations;
@@ -111,9 +111,9 @@ namespace TravelApp_G15_API.Controllers
         {
           
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                NotFound();
+                return NotFound();
             if (!_tripRepository.TryGetLocation(trip.TripID, locationID, out var location))
-                NotFound();
+                return NotFound();
 
             return location;
         }
@@ -124,9 +124,9 @@ namespace TravelApp_G15_API.Controllers
  
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                NotFound();
+                return NotFound();
             if (!_tripRepository.TryGetCategories(trip.TripID, out var categories))
-                NotFound();
+                return NotFound();
 
 
             return categories;
@@ -137,9 +137,9 @@ namespace TravelApp_G15_API.Controllers
         {
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                NotFound();
+                return NotFound();
             if (!_tripRepository.TryGetCategory(trip.TripID, categoryID, out var category))
-                NotFound();
+                return NotFound();
 
             return category;
         }
@@ -149,9 +149,9 @@ namespace TravelApp_G15_API.Controllers
         {
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                NotFound();
+                return NotFound();
             if (!_tripRepository.TryGetItems(trip.TripID, out var items))
-                NotFound();
+                return NotFound();
 
 
             return items;
@@ -162,12 +162,9 @@ namespace TravelApp_G15_API.Controllers
         {
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                NotFound();
+               return  NotFound();
             if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
-                NotFound();
-
-
-
+                return NotFound();
 
             return item;
         }
@@ -177,9 +174,9 @@ namespace TravelApp_G15_API.Controllers
         {
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                NotFound();
+                return NotFound();
             if (!_tripRepository.TryGetTask(trip.TripID, taskID, out var task))
-                NotFound();
+               return NotFound();
 
 
 
@@ -190,28 +187,32 @@ namespace TravelApp_G15_API.Controllers
         [HttpGet("{tripID}/tasks")]
         public ActionResult<List<Models.Task>> GetUserTripTasks(int tripID)
         {
-            //List<ItemDTO> itemList = new List<ItemDTO>();
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                NotFound();
+                return NotFound();
             if (!_tripRepository.TryGetTasks(trip.TripID, out var tasks))
-                NotFound();
-            /*
-                        foreach (var l in items)
-                        {
-                            var dto = new ItemDTO
-                            {
-                               Name = l.Name,
-                               Amount = l.Amount,
-                               Checked = l.Checked
-                            };
-                            itemList.Add(dto);
-                        }*/
+                return NotFound();
+
 
             return tasks;
         }
 
+        [HttpGet("{tripID}/Category/{categoryID}/items")]
+        public ActionResult<List<Item>> GetUserCategoryItems(int tripID, int categoryID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+            if (!_tripRepository.TryGetItemsFromCategory(trip.TripID, categoryID, out var items))
+                return NoContent();
 
+
+            return items; 
+
+        }
+
+
+
+            
         #endregion
 
         #region HttpPostLoginRegister

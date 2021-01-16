@@ -13,6 +13,7 @@ namespace TravelApp_G15.ViewModels
     class ItemViewModel
     {
         public List<Item> Items;
+        public List<Item> CategoryItems;
         private HttpClient _client;
 
         public ItemViewModel()
@@ -29,6 +30,7 @@ namespace TravelApp_G15.ViewModels
             _client.DefaultRequestHeaders.Add("Authorization", token);
 
             Items = new List<Item>();
+            CategoryItems = new List<Item>();
         }
 
         #region Get
@@ -42,10 +44,15 @@ namespace TravelApp_G15.ViewModels
                 Items.Add(i);
         }
 
-        /*public async Task GetItemsByCategorie(int tripID, int categorieID)
+        public async Task GetItemsByCategorie(int tripID, int categorieID)
         {
-            //TODO
-        }*/
+            var url = "https://localhost:5001/api/User/" + tripID + "/Category/" + categorieID;
+            var json = await _client.GetStringAsync(url);
+            var items = JsonConvert.DeserializeObject<ICollection<Item>>(json);
+
+            foreach (var i in items)
+                CategoryItems.Add(i);
+        }
         #endregion
 
         #region Post

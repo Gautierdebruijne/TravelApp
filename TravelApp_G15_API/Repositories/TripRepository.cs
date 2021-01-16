@@ -96,6 +96,15 @@ namespace TravelApp_G15_API.Repositories
             return tasks != null;
         }
 
+        public bool TryGetItemsFromCategory(int id, int categoryID, out List<Item> items)
+        {
+            var trip = _trips.Include(l => l.Items).FirstOrDefault(t => t.TripID == id);
+            items = trip.Items.Where(i => i.Category.CategoryID == categoryID).ToList();
+
+            return items != null;
+        }
+
+
 
         public bool TryGetTask(int id, int taskID, out Models.Task task)
         {
