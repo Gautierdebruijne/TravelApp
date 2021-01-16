@@ -90,5 +90,10 @@ namespace TravelApp_G15.Views
         {
             if (this.Frame.CanGoBack) this.Frame.GoBack();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
