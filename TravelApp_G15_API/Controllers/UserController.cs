@@ -446,7 +446,7 @@ namespace TravelApp_G15_API.Controllers
 
 
 
-        [HttpPost("{tripID}/{categorieID}/Categorie/{itemID}")]
+        [HttpPost("{tripID}/{categorieID}/Categorie/{itemID}/addItemToCategory")]
         public IActionResult AddItemToCategorie(int tripID, int categorieID, int itemID)
         {
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
