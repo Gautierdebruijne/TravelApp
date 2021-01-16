@@ -81,7 +81,7 @@ namespace TravelApp_G15_API.Controllers
         }
 
         [HttpGet("{tripID}/trip")]
-        public ActionResult<Trip> GetUserTrips(int tripID)
+        public ActionResult<Trip> GetUserTrip(int tripID)
         {
            
 
@@ -390,7 +390,7 @@ namespace TravelApp_G15_API.Controllers
         #endregion
 
         #region Post
-        [HttpPost("{tripID}/addTrip")]
+        [HttpPost("addTrip")]
         public IActionResult AddTrip(TripDTO t)
         {
             Trip trip = new Trip() { Name = t.Name, Date = t.Date };
