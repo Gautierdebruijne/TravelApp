@@ -61,6 +61,11 @@ namespace TravelApp_G15_API.Controllers
         {
             Trip t = _tripRepository.GetById(tripID);
 
+            if(t == null)
+            {
+                return NotFound();
+            }
+
             _tripRepository.DeleteTrip(t);
             _tripRepository.SaveChanges();
 
