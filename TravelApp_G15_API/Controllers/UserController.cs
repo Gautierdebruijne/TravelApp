@@ -61,21 +61,11 @@ namespace TravelApp_G15_API.Controllers
         [HttpGet("trips")]
         public ActionResult<List<Trip>> GetUserTrips()
         {
-            //List<Trip> tripList = new List<Trip>();
 
             if (!_userRepository.TryGetTrips(getLoggedUser().UserID, out var trips))
                 NotFound();
 
-        /*    foreach(var t in trips)
-            {
-                var dto = new TripDTO
-                {
-                    Name = t.Name,
-                    Date = t.Date
-                };
 
-                tripList.Add(dto);
-            }*/
 
             return trips;
         }
@@ -88,11 +78,7 @@ namespace TravelApp_G15_API.Controllers
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID,out var trip))
                 NotFound();
 
-      /*          var dto = new TripDTO
-                {
-                    Name = trip.Name,
-                    Date = trip.Date
-                };*/
+
 
                 
             return trip;
@@ -110,22 +96,12 @@ namespace TravelApp_G15_API.Controllers
         [HttpGet("{tripID}/locations")]
         public ActionResult<List<Location>> GetUserTripLocations(int tripID)
         {
-            //List<LocationDTO> locationList = new List<LocationDTO>();
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetLocations(trip.TripID, out var locations))
                 NotFound();
 
-      /*      foreach(var l in locations)
-            {
-                var dto = new LocationDTO
-                {
-                    City = l.City,
-                    Country = l.Country
-                };
-                locationList.Add(dto);
-            }*/
 
             return locations;
         }
@@ -139,36 +115,19 @@ namespace TravelApp_G15_API.Controllers
             if (!_tripRepository.TryGetLocation(trip.TripID, locationID, out var location))
                 NotFound();
 
-
-         /*   var locationDTO = new LocationDTO
-            {
-                City = location.City,
-                Country = location.Country
-            };
-               */
-            
-
             return location;
         }
 
         [HttpGet("{tripID}/categories")]
         public ActionResult<List<Category>> GetUserTripCategories(int tripID)
         {
-            //List<CategoryDTO> categorieList = new List<CategoryDTO>();
+ 
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetCategories(trip.TripID, out var categories))
                 NotFound();
-/*
-            foreach (var l in categories)
-            {
-                var dto = new CategoryDTO
-                {
-                   Name = l.Name
-                };
-                categorieList.Add(dto);
-            }*/
+
 
             return categories;
         }
@@ -182,37 +141,18 @@ namespace TravelApp_G15_API.Controllers
             if (!_tripRepository.TryGetCategory(trip.TripID, categoryID, out var category))
                 NotFound();
 
-
-        /*    var categoryDTO = new CategoryDTO
-            {
-              Name = category.Name
-            };
-*/
-
-
             return category;
         }
 
         [HttpGet("{tripID}/items")]
         public ActionResult<List<Item>> GetUserTripItems( int tripID)
         {
-            //List<ItemDTO> itemList = new List<ItemDTO>();
 
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
                 NotFound();
             if (!_tripRepository.TryGetItems(trip.TripID, out var items))
                 NotFound();
-/*
-            foreach (var l in items)
-            {
-                var dto = new ItemDTO
-                {
-                   Name = l.Name,
-                   Amount = l.Amount,
-                   Checked = l.Checked
-                };
-                itemList.Add(dto);
-            }*/
+
 
             return items;
         }
@@ -226,13 +166,6 @@ namespace TravelApp_G15_API.Controllers
             if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
                 NotFound();
 
-
-    /*        var itemDTO = new ItemDTO
-            {
-                Name = item.Name,
-                Amount = item.Amount,
-                Checked = item.Checked
-            };*/
 
 
 
@@ -248,13 +181,6 @@ namespace TravelApp_G15_API.Controllers
             if (!_tripRepository.TryGetTask(trip.TripID, taskID, out var task))
                 NotFound();
 
-
-            /*        var itemDTO = new ItemDTO
-                    {
-                        Name = item.Name,
-                        Amount = item.Amount,
-                        Checked = item.Checked
-                    };*/
 
 
 
@@ -521,6 +447,41 @@ namespace TravelApp_G15_API.Controllers
             return NoContent();
         }
 
+
+
+        #endregion
+
+        #region put 
+        [HttpPut("{tripID}/Item/{itemID}")]
+        public IActionResult CheckItem(int tripID, int itemID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+
+            if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
+                return NoContent();
+
+            item.Checked = true;
+            _tripRepository.UpdateTrip(trip);
+            _tripRepository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPut("{tripID}/Task/{taskID}")]
+        public IActionResult CheckTask(int tripID, int taskID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+            if (!_tripRepository.TryGetTask(trip.TripID, taskID, out var task))
+                return NoContent();
+
+            task.isChecked = true;
+            _tripRepository.UpdateTrip(trip);
+            _tripRepository.SaveChanges();
+
+            return NoContent();
+        }
         #endregion
     }
 }
