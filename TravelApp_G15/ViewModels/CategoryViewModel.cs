@@ -47,25 +47,17 @@ namespace TravelApp_G15.ViewModels
             var categorieJson = JsonConvert.SerializeObject(category);
             var url = "https://localhost:5001/api/User/" + tripID + "/addCategory";
 
-            int tID;
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            tID = Int32.Parse(localSettings.Values["tripID"].ToString());
-
             var result = await _client.PostAsync(url, new StringContent(categorieJson, Encoding.UTF8, "application/json"));
 
             if (result.IsSuccessStatusCode)
             {
-                await GetAllCategories(tID);
+                await GetAllCategories(tripID);
             }
         }
 
-        public async Task DeleteCategory(int categoryID)
+        public async Task DeleteCategory(int categoryID, int tripID)
         {
-            int tID;
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            tID = Int32.Parse(localSettings.Values["tripID"].ToString());
-
-            var url = "https://localhost:5001/api/User/" + tID + "/Category/" + categoryID;
+            var url = "https://localhost:5001/api/User/" + tripID + "/Category/" + categoryID;
 
             var res = await _client.DeleteAsync(url);
         }

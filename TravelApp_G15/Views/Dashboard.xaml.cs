@@ -76,7 +76,11 @@ namespace TravelApp_G15.Views
             Vacations.ItemsSource = _trips;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (this.Frame.CanGoBack) this.Frame.GoBack();
+        }
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             var tripID = (sender as Button).Tag;
 
@@ -86,14 +90,10 @@ namespace TravelApp_G15.Views
             this.Frame.Navigate(typeof(TripDetail));
         }
 
-        private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
-        {
-            if (this.Frame.CanGoBack) this.Frame.GoBack();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
     }
 }
