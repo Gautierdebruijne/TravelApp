@@ -33,13 +33,14 @@
                     <RowDefinition Height="100" />
                     <RowDefinition Height="100" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
                     <Run FontWeight="SemiBold" Text="It's time to"></Run>
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
-                <ListView x:Name="Vacations" HorizontalAlignment="Center" Grid.Row="2">
+                <ListView x:Name="Vacations" HorizontalAlignment="Center" Grid.Row="2" SelectionMode="None">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -68,7 +69,7 @@
                                         Grid.Row="1"
                                         Margin="15 0 15 15"
                                         FontSize="15"/>
-                                    <Button Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Click="Button_Click" Tag="{Binding TripID}">
+                                    <Button x:Name="btnEdit" Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Click="btnEdit_Click" Tag="{Binding TripID}">
                                         <SymbolIcon Symbol="Edit"/>
                                     </Button>
                                 </Grid>
@@ -76,11 +77,12 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <Button x:Name="btnAdd" Background="Transparent" Click="btnAdd_Click" 
+                        Tag="{Binding TripID}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                        Grid.Row="3" BorderThickness="1">
+                    <SymbolIcon Symbol="Add" Foreground="Green"/>
+                </Button>
             </Grid>
-            <Button Background="Transparent" Click="Button_Click" Tag="{Binding TripID}" Margin="370,845,0,0" VerticalAlignment="Top" Height="113" Width="160">
-                <SymbolIcon Symbol="Add"/>
-            </Button>
-
         </Grid>
     </Grid>
 </Page>

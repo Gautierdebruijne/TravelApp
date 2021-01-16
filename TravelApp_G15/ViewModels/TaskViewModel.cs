@@ -31,8 +31,8 @@ namespace TravelApp_G15.ViewModels
 
             Tasks = new List<TaskModel>();
 
-            ApplicationDataContainer localSettings2 = Windows.Storage.ApplicationData.Current.LocalSettings;
-            tripID = Int32.Parse(localSettings2.Values["tripID"].ToString());
+            //ApplicationDataContainer localSettings2 = Windows.Storage.ApplicationData.Current.LocalSettings;
+            //tripID = Int32.Parse(localSettings2.Values["tripID"].ToString());
         }
 
         public async Task GetAllTasks(int tripID)
