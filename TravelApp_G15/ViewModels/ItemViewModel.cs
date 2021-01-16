@@ -40,5 +40,20 @@ namespace TravelApp_G15.ViewModels
             foreach (var i in items)
                 Items.Add(i);
         }
+
+        public async Task AddItem(int tripID, String name, int amount)
+        {
+            var item = new Item { Name = name, Amount = amount, Category = null, Checked = false };
+            var itemJson = JsonConvert.SerializeObject(item);
+            var url = "https://localhost:5001/api/User/" + tripID + "/addItem";
+
+
+            var res = await _client.PostAsync(url, new StringContent(itemJson, Encoding.UTF8, "application/json"));
+
+            if (res.IsSuccessStatusCode)
+            {
+                await GetAllItems(tripID);
+            }
+        }
     }
 }
