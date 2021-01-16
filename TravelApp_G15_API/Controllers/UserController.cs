@@ -461,7 +461,7 @@ namespace TravelApp_G15_API.Controllers
             if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
                 return NoContent();
 
-            item.Checked = true;
+            item.Checked = !item.Checked;
             _tripRepository.UpdateTrip(trip);
             _tripRepository.SaveChanges();
 
@@ -476,7 +476,7 @@ namespace TravelApp_G15_API.Controllers
             if (!_tripRepository.TryGetTask(trip.TripID, taskID, out var task))
                 return NoContent();
 
-            task.isChecked = true;
+            task.isChecked = !task.isChecked;
             _tripRepository.UpdateTrip(trip);
             _tripRepository.SaveChanges();
 
