@@ -65,7 +65,7 @@ namespace TravelApp_G15.ViewModels
             ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             tID = Int32.Parse(localSettings.Values["tripID"].ToString());
 
-            var url = "https://localhost:5001/api/Category/" + tID + "?categoryID=" + categoryID;
+            var url = "https://localhost:5001/api/User/" + tID + "/Category/" + categoryID;
 
             var res = await _client.DeleteAsync(url);
         }*/
