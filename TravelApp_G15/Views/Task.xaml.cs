@@ -23,44 +23,27 @@ namespace TravelApp_G15.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TripDetail : Page
+    public sealed partial class Task : Page
     {
-        private ICollection<Item> items;
-        private ICollection<Category> categories;
-        private ItemViewModel itemViewModel;
-        private CategoryViewModel catViewModel;
+        private ICollection<TaskModel> tasks;
+        private TaskViewModel taskViewModel;
 
-        public TripDetail()
+        public Task()
         {
             this.InitializeComponent();
+            taskViewModel = new TaskViewModel();
 
-            items = new List<Item>();
-            categories = new List<Category>();
-            itemViewModel = new ItemViewModel();
-            catViewModel = new CategoryViewModel();
-
-            GetAllItems(itemViewModel);
-            GetAllCategories(catViewModel);
+            GetAllTasks(taskViewModel);
         }
 
-        private async void GetAllItems(ItemViewModel viewModel)
+        private async void GetAllTasks(TaskViewModel viewModel)
         {
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             int tripID = Int32.Parse(local.Values["tripID"].ToString());
-            await viewModel.GetAllItems(tripID);
+            await viewModel.GetAllTasks(tripID);
 
-            items = viewModel.Items;
-            ItemList.ItemsSource = items;
-        }
-
-        private async void GetAllCategories(CategoryViewModel viewModel)
-        {
-            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
-            int tripID = Int32.Parse(local.Values["tripID"].ToString());
-            await viewModel.GetAllCategories(tripID);
-
-            categories = viewModel.Categories;
-            CatList.ItemsSource = categories;
+            tasks = viewModel.Tasks;
+            TaskList.ItemsSource = tasks;
         }
 
         #region Navigation
@@ -115,8 +98,8 @@ namespace TravelApp_G15.Views
         {
             var settings = (NavigationViewItem)Navigation.SettingsItem;
             settings.Content = "Logout";
-            settings.FontSize = 20;
             settings.Icon = new SymbolIcon((Symbol)0xE106);
+            settings.FontSize = 20;
         }
         private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
