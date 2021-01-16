@@ -82,7 +82,7 @@ namespace TravelApp_G15.Views
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             local.Values["tripID"] = tripID;
 
-            //this.Frame.Navigate(typeof(TripDetail));
+            this.Frame.Navigate(typeof(TripDetail));
         }
     }
 }

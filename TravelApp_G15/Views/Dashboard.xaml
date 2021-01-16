@@ -28,15 +28,6 @@
         </Frame>
 
         <Grid>
-            <!--<Image Source="Assets/background.jpg" x:Name="background" Margin="10,339,508,1"/>
-            <TextBlock Margin="60,91,525,0" Text="Welcome back, traveller!" TextWrapping="Wrap" FontFamily="Ink Free" FontSize="85" FontWeight="Bold" Height="131" VerticalAlignment="Top"/>
-            <Rectangle Margin="1007,91,0,91" Stroke="Black" HorizontalAlignment="Left" Width="439"/>-->
-
-            <!--<Grid.RowDefinitions>
-                <RowDefinition Height="70"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>-->
-
             <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />

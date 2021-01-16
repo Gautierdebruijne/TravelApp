@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace TravelApp_G15_API.Models
+namespace TravelApp_G15.Models
 {
-    public class Task
+    class TaskModel
     {
-        public int TaskID { get; set; }
         public string Name { get; set; }
-        public bool isChecked { get; set; }
+        public bool Checked { get; set; }
     }
 }
