@@ -72,13 +72,12 @@ namespace TravelApp_G15.ViewModels
         #endregion
 
         #region Put
-        /*public async Task ChangeItem(Item i, int tripID)
+        public async Task ChangeItem(int itemID, int tripID)
         {
-            var itemJson = JsonConvert.SerializeObject(i);
-            var url =  ;//httpput 
+            var url = "https://localhost:5001/api/User/" + tripID + "/Task/" + itemID;
 
-            var res = await _client.PutAsync(url, new StringContent(itemJson, Encoding.UTF8, "application/json"));
-        }*/
+            var res = await _client.PutAsync(url, null);
+        }
         #endregion
 
         #region Delete
