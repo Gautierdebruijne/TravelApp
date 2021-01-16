@@ -8,6 +8,7 @@ using TravelApp_G15.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -83,6 +84,16 @@ namespace TravelApp_G15.Views
             local.Values["tripID"] = tripID;
 
             this.Frame.Navigate(typeof(TripDetail));
+        }
+
+        private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (this.Frame.CanGoBack) this.Frame.GoBack();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

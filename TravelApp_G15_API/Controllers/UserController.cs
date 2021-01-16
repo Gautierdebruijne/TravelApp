@@ -214,7 +214,7 @@ namespace TravelApp_G15_API.Controllers
 
         #endregion
 
-        #region HttpPost
+        #region HttpPostLoginRegister
         [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<ActionResult<String>> Login(LoginDTO model)
@@ -268,9 +268,9 @@ namespace TravelApp_G15_API.Controllers
         public async Task<ActionResult<ActionResult<string>>> RegisterAsync(RegisterDTO model)
         {
             IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
-            u = new User() { Name = model.Name, Email = model.Email };
+            User u = new User{ Name = model.Name, Email = model.Email };
 
-            var result = await _userManager.CreateAsync(user, "EssentialsE2!");
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
@@ -315,7 +315,7 @@ namespace TravelApp_G15_API.Controllers
         }
         #endregion
 
-        #region Post
+        #region HttpPostTrip
         [HttpPost("addTrip")]
         public IActionResult AddTrip(TripDTO t)
         {
@@ -372,20 +372,20 @@ namespace TravelApp_G15_API.Controllers
 
 
 
-        /*    [HttpPost("{tripID}/{categorieID}/Categorie/{itemID}/addItemToCategorie")]
-            public IActionResult AddItemToCategorie(int tripID, int categorieID, int itemID)
-            {
-                if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
-                    return NotFound();
-                if (!_tripRepository.TryGetCategory(trip.TripID, categorieID, out var category))
-                    return NotFound();
-                if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
-                    return NotFound();
+        [HttpPost("{tripID}/{categorieID}/Categorie/{itemID}/addItemToCategory")]
+        public IActionResult AddItemToCategorie(int tripID, int categorieID, int itemID)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NotFound();
+            if (!_tripRepository.TryGetCategory(trip.TripID, categorieID, out var category))
+                return NotFound();
+            if (!_tripRepository.TryGetItem(trip.TripID, itemID, out var item))
+                return NotFound();
 
-                item.Category = category; 
-                _tripRepository.SaveChanges();
-                return NoContent();
-            }*/
+            item.Category = category; 
+            _tripRepository.SaveChanges();
+            return NoContent();
+        }
 
         #endregion
         #region Delete

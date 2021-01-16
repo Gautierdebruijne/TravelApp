@@ -11,7 +11,7 @@
 
     <Grid>
         <NavigationView x:Name="Navigation" IsPaneOpen="False" PaneOpened="Navigation_PaneOpened" Loaded="NavigationView_Loaded" 
-                        SelectionChanged="NavigationView_SelectionChanged" AlwaysShowHeader="False">
+                        SelectionChanged="NavigationView_SelectionChanged" AlwaysShowHeader="False"  IsBackEnabled="True" BackRequested="NavView_BackRequested">
             <NavigationView.MenuItems>
                 <NavigationViewItemHeader x:Name="Menu" Content=""/>
                 <NavigationViewItem Icon="World" Content="Vacations" Tag="vacations" IsSelected="True"/>
@@ -39,7 +39,6 @@
                     <Run FontWeight="SemiBold" Text="It's time to"></Run>
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
-
                 <ListView x:Name="Vacations" HorizontalAlignment="Center" Grid.Row="2">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -55,7 +54,7 @@
                                         <ColumnDefinition Width="50" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    
+
                                     <TextBlock Text="{Binding Name}" 
                                         Grid.Column="1"
                                         Width="auto" 
@@ -78,6 +77,10 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
+            <Button Background="Transparent" Click="Button_Click" Tag="{Binding TripID}" Margin="370,845,0,0" VerticalAlignment="Top" Height="113" Width="160">
+                <SymbolIcon Symbol="Add"/>
+            </Button>
+
         </Grid>
     </Grid>
 </Page>

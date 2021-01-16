@@ -42,5 +42,30 @@ namespace TravelApp_G15.ViewModels
                 Trips.Add(t);
             }
         }
+
+        public async Task AddTrip(string name, DateTime date)
+        {
+            var url = "https://localhost:5001/api/User/addTrip";
+            var trip = new Trip { Name = name, Date = date };
+            var tripJson = JsonConvert.SerializeObject(trip);
+
+            var result = await _client.PostAsync(url, new StringContent(tripJson, Encoding.UTF8, "application/json"));
+
+            if (result.IsSuccessStatusCode)
+            {
+                await GetAllTrips();
+            }
+        }
+
+        public async Task DeleteTrip(int tripID)
+        {
+            var url = "https://localhost:5001/api/Trip/tripID?tripID=" + tripID;
+            var result = await _client.DeleteAsync(url);
+
+            if (result.IsSuccessStatusCode)
+            {
+                await GetAllTrips();
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace TravelApp_G15.ViewModels
     {
         public List<TaskModel> Tasks;
         private HttpClient _client;
+        int tripID;
 
         public TaskViewModel()
         {
@@ -29,6 +30,9 @@ namespace TravelApp_G15.ViewModels
             _client.DefaultRequestHeaders.Add("Authorization", token);
 
             Tasks = new List<TaskModel>();
+
+            ApplicationDataContainer localSettings2 = Windows.Storage.ApplicationData.Current.LocalSettings;
+            tripID = Int32.Parse(localSettings2.Values["tripID"].ToString());
         }
 
         public async Task GetAllTasks(int tripID)
@@ -39,6 +43,36 @@ namespace TravelApp_G15.ViewModels
 
             foreach (var t in tasks)
                 Tasks.Add(t);
+        }
+
+        public async Task AddTask(string name)
+        {
+            TaskModel task = new TaskModel() { Name = name, Checked = false };
+            var taskJson = JsonConvert.SerializeObject(task);
+            var url = "https://localhost:5001/api/User/" + tripID + "/addTask";
+
+            var result = await _client.PostAsync(url, new StringContent(taskJson, Encoding.UTF8, "application/json"));
+
+            if (result.IsSuccessStatusCode)
+            {
+                await GetAllTasks(tripID);
+            }
+        }
+
+        /*public async Task ChangeItem(TaskModel t, int tripID)
+        {
+            var taskJson = JsonConvert.SerializeObject(t);
+            var url =  ;//httpput 
+
+            var res = await _client.PutAsync(url, new StringContent(taskJson, Encoding.UTF8, "application/json"));
+        }*/
+
+        public async Task DeleteTaskAsync(int taskID)
+        {
+            var url = "https://localhost:5001/api/User/" + tripID + "/Task/" + taskID;
+
+            var res = await _client.DeleteAsync(url);
+
         }
     }
 }

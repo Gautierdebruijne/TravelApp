@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -52,7 +53,7 @@ namespace TravelApp_G15.Views
             {
                 txtError.Text = "";
 
-                if (Regex.IsMatch(txtEmail.Text, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$"))
+                if (Regex.IsMatch(txtEmail.Text, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
                 {
                     if (Regex.IsMatch(txtPassword.Password, @"^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$"))
                     {
@@ -100,14 +101,16 @@ namespace TravelApp_G15.Views
 
             try
             {
-                await registervm.Register(txtName.Text, txtEmail.Text, txtPassword.Password, txtPasswordConfirm.Password);
+                await registervm.Register(txtName.Text, txtEmail.Text, txtPassword.Password);
 
                 if (registervm.Success)
                 {
+                    Debug.WriteLine("Succesvol geregistreerd");
                     this.Frame.Navigate(typeof(Dashboard));
                 }
                 else
                 {
+                    Debug.WriteLine("Onsuccesvol geregistreerd");
                     txtError.Text = "Something has gone wrong, has this email already been used?";
                 }
             }
