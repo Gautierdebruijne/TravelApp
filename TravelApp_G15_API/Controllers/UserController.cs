@@ -342,9 +342,9 @@ namespace TravelApp_G15_API.Controllers
         public async Task<ActionResult<ActionResult<string>>> RegisterAsync(RegisterDTO model)
         {
             IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
-            u = new User() { Name = model.Name, Email = model.Email };
+            User u = new User{ Name = model.Name, Email = model.Email };
 
-            var result = await _userManager.CreateAsync(user, "EssentialsE2!");
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
