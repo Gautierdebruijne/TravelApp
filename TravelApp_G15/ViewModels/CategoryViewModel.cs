@@ -41,7 +41,7 @@ namespace TravelApp_G15.ViewModels
                 Categories.Add(c);
         }
 
-        /*public async Task AddCategory(int tripID, string name)
+        public async Task AddCategory(int tripID, string name)
         {
             var category = new Category { Name = name };
             var categorieJson = JsonConvert.SerializeObject(category);
@@ -68,6 +68,6 @@ namespace TravelApp_G15.ViewModels
             var url = "https://localhost:5001/api/User/" + tID + "/Category/" + categoryID;
 
             var res = await _client.DeleteAsync(url);
-        }*/
+        }
     }
 }
