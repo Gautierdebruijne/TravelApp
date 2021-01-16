@@ -34,6 +34,7 @@
                     <RowDefinition Height="100" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="50" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
@@ -82,6 +83,62 @@
                         Grid.Row="3" BorderThickness="1">
                     <SymbolIcon Symbol="Add" Foreground="Green"/>
                 </Button>
+
+                <Popup x:Name="popAdd" IsOpen="False" IsLightDismissEnabled="True"  VerticalAlignment="Bottom" HorizontalAlignment="Left" 
+                                    LightDismissOverlayMode="On" Grid.Row="4">
+
+                    <StackPanel HorizontalAlignment="Left">
+                        <TextBlock Text="Let's name this trip!" FontSize="20" FontWeight="SemiBold" Margin="20"/>
+                        <TextBox x:Name="txtName" PlaceholderText="Name" FontSize="15"  Foreground="#B3B3B3"  
+                                        CornerRadius="10" Margin="0 0 0 20" />
+
+                        <TextBlock Text="Where are we going to?" FontSize="20" FontWeight="SemiBold" Margin="20"/>
+                        <TextBox x:Name="txtCountry" PlaceholderText="Country" FontSize="15"  Foreground="#B3B3B3"  
+                                        CornerRadius="10" Margin="0 0 0 20" />
+
+                        <TextBox x:Name="txtCity" PlaceholderText="City" FontSize="15"  Foreground="#B3B3B3"  
+                                        CornerRadius="10" Margin="0 0 0 20"/>
+
+                        <TextBlock x:Name="txtTitle" Text="When do we leave?" FontSize="20" FontWeight="SemiBold" Margin="20"/>
+
+                        <CalendarDatePicker PlaceholderText="Choose your departure date!" CornerRadius="10" Width="300" />
+
+                        <Button x:Name="btnAddTrip" Click="btnAddTrip_Click" Width="300" Height="50" CornerRadius="20"  
+                                HorizontalAlignment="Center" Background="#FF01A3ff" Margin="0 20 0 0">
+
+                            <StackPanel>
+                                <TextBlock Text="Let's go!" FontSize="20" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Popup>
+
+                <!--<ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:Trip">
+                            <Popup x:Name="popAdd" IsOpen="False" IsLightDismissEnabled="True"  VerticalAlignment="Bottom" HorizontalAlignment="Left" 
+                                    LightDismissOverlayMode="On" Grid.Row="4">
+
+                                <StackPanel HorizontalAlignment="Left">
+                                    <TextBlock Text="Let's name this trip!" FontSize="20" FontWeight="SemiBold" Margin="20"/>
+                                    <TextBox x:Name="txtName" PlaceholderText="Name" FontSize="15"  Foreground="#B3B3B3"  
+                                        CornerRadius="10" Margin="0 0 0 20" Tag="{Binding Name}"/>
+
+                                    <TextBlock Text="Where are we going to?" FontSize="20" FontWeight="SemiBold" Margin="20"/>
+                                    <TextBox x:Name="txtCountry" PlaceholderText="Country" FontSize="15"  Foreground="#B3B3B3"  
+                                        CornerRadius="10" Margin="0 0 0 20" />
+
+                                    <TextBox x:Name="txtCity" PlaceholderText="City" FontSize="15"  Foreground="#B3B3B3"  
+                                        CornerRadius="10" Margin="0 0 0 20"/>
+
+                                    <TextBlock x:Name="txtTitle" Text="When do we leave?" FontSize="20" FontWeight="SemiBold" Margin="20"/>
+
+                                    <CalendarDatePicker PlaceholderText="Choose your departure date!" CornerRadius="10" Width="300" Tag="{Binding Date}"/>
+                                </StackPanel>
+                            </Popup>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
             </Grid>
         </Grid>
     </Grid>
