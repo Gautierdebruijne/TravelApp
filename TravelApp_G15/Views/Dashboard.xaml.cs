@@ -61,6 +61,7 @@ namespace TravelApp_G15.Views
             var settings = (NavigationViewItem)Navigation.SettingsItem;
             settings.Content = "Logout";
             settings.Icon = new SymbolIcon((Symbol)0xE106);
+            settings.FontSize = 20;
         }
 
         private void Navigation_PaneOpened(NavigationView sender, object args)
