@@ -115,6 +115,11 @@ namespace TravelApp_G15_API.Repositories
             _trips.Remove(t);
         }
 
+        public void UpdateTrip(Trip t)
+        {
+            _trips.Update(t);
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();

@@ -13,5 +13,10 @@ namespace TravelApp_G15_API.DTO
         public bool Checked { get; set; }
 
        public CategoryDTO Category { get; set; }
+
+       public ItemDTO()
+        {
+            Checked = false;
+        }
     }
 }
