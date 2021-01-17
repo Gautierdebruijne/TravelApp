@@ -111,7 +111,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
-            <Button Margin="470,260,0,0" VerticalAlignment="Top" Background="Transparent" Tag="backButtonCat">
+            <Button x:Name="backButtonCat" Margin="470,260,0,0" VerticalAlignment="Top" Background="Transparent" Click="btnBackCategoryItems_Click" Tag="backButtonCat" Visibility="Collapsed">
                 <SymbolIcon Symbol="Back"/>
             </Button>
         </Grid>
