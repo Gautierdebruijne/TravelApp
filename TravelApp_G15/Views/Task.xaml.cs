@@ -169,7 +169,19 @@ namespace TravelApp_G15.Views
 
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
+            txtError.Text = "";
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
 
+            if (txtName.Text != "" && txtName.Text != null)
+            {
+                taskViewModel.AddTask(txtName.Text, tripID);
+                popAdd.IsOpen = false;
+            }
+            else
+            {
+                txtError.Text = "Name is required!";
+            }
         }
     }
 }

@@ -79,7 +79,6 @@ namespace TravelApp_G15.Views
 
         private async void GetItemsPerCategorie(ItemViewModel viewModel)
         {
-
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             int tripID = Int32.Parse(local.Values["tripID"].ToString());
             int categoryID = Int32.Parse(local.Values["categoryID"].ToString());
@@ -91,7 +90,6 @@ namespace TravelApp_G15.Views
             ItemList.ItemsSource = items;
 
             ProgressbarPercentageToDo();
-
         }
 
         #region Navigation
