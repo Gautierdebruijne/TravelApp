@@ -96,7 +96,7 @@ namespace TravelApp_G15.Views
             popAdd.IsOpen = true;
         }
 
-        private void btnAddTrip_Click(object sender, RoutedEventArgs e)
+        private async void btnAddTrip_Click(object sender, RoutedEventArgs e)
         {
             String date = "";
             DateTime departure = DateTime.Now;
@@ -118,7 +118,7 @@ namespace TravelApp_G15.Views
                             }
                             else
                             {
-                                tripViewModel.AddTrip(txtName.Text, departure);
+                                await tripViewModel.AddTrip(txtName.Text, departure);
                             }
                         }
                         catch
@@ -140,31 +140,24 @@ namespace TravelApp_G15.Views
             {
                 txtError.Text = "Name is required!";
             }
+        }
 
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog deleteTrip = new ContentDialog
+            {
+                Title = "Are you sure you want to delete this trip?",
+                PrimaryButtonText = "Delete",
+                CloseButtonText = "Cancel"
+            };
 
+            ContentDialogResult result = await deleteTrip.ShowAsync();
 
-            //if (!txtName.Text.Contains("") && txtName.Text != null)
-            //{
-            //    if(!txtCountry.Text.Contains("") && txtCountry.Text != null)
-            //    {
-            //        if(!txtCity.Text.Contains("") && txtCity.Text != null)
-            //        {
-
-            //        }
-            //        else
-            //        {
-            //            txtError.Text = "City is required!";
-            //        }
-            //    }
-            //    else
-            //    {
-            //        txtError.Text = "Country is required!";
-            //    }
-            //}
-            //else
-            //{
-            //    txtError.Text = "Name is required!";
-            //}
+            if(result == ContentDialogResult.Primary)
+            {
+                int tripID = Int32.Parse((sender as Button).Tag.ToString());
+                await tripViewModel.DeleteTrip(tripID);
+            }
         }
     }
 }
