@@ -64,10 +64,9 @@ namespace TravelApp_G15.ViewModels
         public async Task ChangeItem(int taskID, int tripID)
         {
             var url = "https://localhost:5001/api/User/" + tripID + "/Item/" + taskID;
-
-               var res = await _client.PutAsync(url, null);
-           }
-   */
+            var res = await _client.PutAsync(url, null);
+        }
+   
         public async Task ChangeTask(TaskModel task)
         {
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
