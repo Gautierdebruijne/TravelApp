@@ -98,7 +98,73 @@ namespace TravelApp_G15.Views
 
         private void btnAddTrip_Click(object sender, RoutedEventArgs e)
         {
+            String date = "";
+            DateTime departure = DateTime.Now;
 
+            if (txtName.Text != "" && txtName.Text != null)
+            {
+                if(txtCountry.Text != "" && txtCountry.Text != null)
+                {
+                    if(txtCity.Text != "" && txtCity.Text != null)
+                    {
+                        try
+                        {
+                            date = datePicker.Date.Value.ToString();
+                            departure = Convert.ToDateTime(date);
+
+                            if (departure < DateTime.Now)
+                            {
+                                txtError.Text = "Departure date can't be in the past!";
+                            }
+                            else
+                            {
+                                tripViewModel.AddTrip(txtName.Text, departure);
+                            }
+                        }
+                        catch
+                        {
+                            txtError.Text = "Departure date is required!";
+                        }
+                    }
+                    else
+                    {
+                        txtError.Text = "City is required!";
+                    }
+                }
+                else
+                {
+                    txtError.Text = "Country is required!";
+                }
+            }
+            else
+            {
+                txtError.Text = "Name is required!";
+            }
+
+
+
+            //if (!txtName.Text.Contains("") && txtName.Text != null)
+            //{
+            //    if(!txtCountry.Text.Contains("") && txtCountry.Text != null)
+            //    {
+            //        if(!txtCity.Text.Contains("") && txtCity.Text != null)
+            //        {
+
+            //        }
+            //        else
+            //        {
+            //            txtError.Text = "City is required!";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        txtError.Text = "Country is required!";
+            //    }
+            //}
+            //else
+            //{
+            //    txtError.Text = "Name is required!";
+            //}
         }
     }
 }
