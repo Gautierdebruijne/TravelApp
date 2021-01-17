@@ -5,7 +5,7 @@
     xmlns:local="using:TravelApp_G15.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:data="using:TravelApp_G15.Models"
+    xmlns:data="using:TravelApp_G15.Models" xmlns:muxc="using:Windows.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -28,12 +28,15 @@
                 </TransitionCollection>
             </Frame.ContentTransitions>
         </Frame>
-
+      
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Margin="50" FontSize="50">
                     <Run FontWeight="SemiBold" Text="It's time to"></Run>
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
         </TextBlock>
         
+        <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Padding="0,15,0,0" Margin="15"></TextBlock>
+        <muxc:ProgressBar x:Name="ProgressBar" Width="130" Margin="99,50,177,0" Grid.Row="1" VerticalAlignment="Top"  />
+
         <Grid>
             <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50">
                 <Grid.RowDefinitions>
@@ -108,14 +111,17 @@
                                         <ColumnDefinition Width="75" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Grid.Column="1" Width="auto" Grid.Row="0"
+                                    <!--<TextBlock Grid.Column="1" Width="auto" Grid.Row="0"
                                         Margin="15" FontSize="20" FontWeight="Bold" Tag="{Binding ItemID}">
                                         
                                         <Run Text="{Binding Amount}" />
                                         <Run Text="{Binding Name}" />
+                                    </TextBlock>-->
+                                    <TextBlock Grid.Column="1" Width="auto" Grid.Row="0"
+                                        Margin="15" FontSize="20" FontWeight="Bold" Text="{Binding Amount}">
                                     </TextBlock>
-
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding Checked}" />
+                                    <CheckBox Tapped="CheckBox_Tapped"  Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding ItemID}" IsChecked="{Binding Checked, Mode=TwoWay}" Content="{Binding Name}"/>
+                            
                                     <Button x:Name="btnDelete" Grid.Column="2" HorizontalAlignment="Right" Background="Transparent" Click="btnDelete_Click" Tag="{Binding TripID}">
                                         <SymbolIcon Symbol="Delete" />
                                     </Button>

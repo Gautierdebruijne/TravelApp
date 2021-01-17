@@ -13,8 +13,8 @@ namespace TravelApp_G15.ViewModels
 {
     class ItemViewModel
     {
-        public ObservableCollection<Item> Items;
-        public ObservableCollection<Item> CategoryItems;
+        public ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<Item> CategoryItems { get; set; }
         private HttpClient _client;
         //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
         private string _apiUrl = "https://localhost:5001/api";
@@ -77,6 +77,18 @@ namespace TravelApp_G15.ViewModels
                 await GetAllItems(tripID);
             }
         }
+
+        public async Task ChangeItem(Item item)
+        {
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+
+            var itemJson = JsonConvert.SerializeObject(item);
+            var url = _apiUrl + "/User/" + tripID + "/Item/" + item.ItemID;
+
+            var res = await _client.PutAsync(url, new StringContent(itemJson, Encoding.UTF8, "application/json"));
+        }
+
 
         public async Task AddItemToCategory(int tripID, int categorieID, int itemID)
         {

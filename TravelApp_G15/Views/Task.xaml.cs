@@ -145,9 +145,7 @@ namespace TravelApp_G15.Views
                         todo += 0;
                     }
                 }
-                Debug.WriteLine("sum: " + todo);
-                Debug.WriteLine("Count: " + tasks.Count);
-          
+           
                 PercentProgress = (todo / tasks.Count) * 100;
                 PercentProgress = Math.Round(PercentProgress, 2);
                 ProgressBar.Value = PercentProgress;

@@ -31,6 +31,7 @@ namespace TravelApp_G15.Views
         private ObservableCollection<Category> categories;
         private ItemViewModel itemViewModel;
         private CategoryViewModel catViewModel;
+        public double PercentProgress { get; set; }
 
         public TripDetail()
         {
@@ -40,9 +41,12 @@ namespace TravelApp_G15.Views
             categories = new ObservableCollection<Category>();
             itemViewModel = new ItemViewModel();
             catViewModel = new CategoryViewModel();
+            PercentProgress = 100;
 
             GetAllItems(itemViewModel);
             GetAllCategories(catViewModel);
+            ProgressbarPercentageToDo();
+
         }
 
         private async void GetAllItems(ItemViewModel viewModel)
@@ -55,6 +59,9 @@ namespace TravelApp_G15.Views
            // await viewModel.GetItemsByCategorie(tripID, categoryID);
             items = viewModel.Items;
             ItemList.ItemsSource = items;
+
+            ProgressbarPercentageToDo();
+
         }
 
         private async void GetAllCategories(CategoryViewModel viewModel)
@@ -65,6 +72,9 @@ namespace TravelApp_G15.Views
 
             categories = viewModel.Categories;
             CatList.ItemsSource = categories;
+
+            ProgressbarPercentageToDo();
+
         }
 
         private async void GetItemsPerCategorie(ItemViewModel viewModel)
@@ -79,6 +89,9 @@ namespace TravelApp_G15.Views
 
             items = viewModel.CategoryItems;
             ItemList.ItemsSource = items;
+
+            ProgressbarPercentageToDo();
+
         }
 
         #region Navigation
@@ -150,17 +163,26 @@ namespace TravelApp_G15.Views
 
             GetItemsPerCategorie(itemViewModel);
             backButtonCat.Visibility = Visibility.Visible;
+
+            ProgressbarPercentageToDo();
+
         }
 
         private void btnBackCategoryItems_Click(object sender, RoutedEventArgs e)
         {
             GetAllItems(itemViewModel);
             backButtonCat.Visibility = Visibility.Collapsed;
+
+            ProgressbarPercentageToDo();
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             popAdd.IsOpen = true;
+
+            ProgressbarPercentageToDo();
+
         }
 
         private async void btnAddItem_Click(object sender, RoutedEventArgs e)
@@ -168,8 +190,11 @@ namespace TravelApp_G15.Views
             txtError.Text = "";
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             int tripID = Int32.Parse(local.Values["tripID"].ToString());
-           // int cateID = Int32.Parse(local.Values["catID"].ToString());
-            //int iID = (int)(sender as ).Tag;
+
+            //moet in xaml id van item ergens kunnen zetten dat methode additemtocategory eraan kan 
+           
+            //int cateID = Int32.Parse(local.Values["catID"].ToString());
+           //int itemID = (int)(sender as ).Tag;
 
             if (txtName.Text != "" && txtName.Text != null)
             {
@@ -177,7 +202,7 @@ namespace TravelApp_G15.Views
                 {
                     await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
                     
-                    //await itemViewModel.AddItemToCategory(tripID, cateID, );
+                    //await itemViewModel.AddItemToCategory(tripID, cateID, itemID);
                     popAdd.IsOpen = false;
                 }
                 else
@@ -192,6 +217,8 @@ namespace TravelApp_G15.Views
             {
                 txtError.Text = "Name is required!";
             }
+            ProgressbarPercentageToDo();
+
         }
 
         private async void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -213,6 +240,53 @@ namespace TravelApp_G15.Views
                 int itemID = Int32.Parse((sender as Button).Tag.ToString());
                 await itemViewModel.DeleteItem(tripID, itemID);
                 GetAllItems(itemViewModel);
+            }
+        }
+
+        private async void CheckBox_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            int checkedItem = (int)(sender as CheckBox).Tag;
+            bool isChecked = (bool)(sender as CheckBox).IsChecked;
+            string name = (string)(sender as CheckBox).Content;
+          
+
+            Item checkItem = new Item() { ItemID = checkedItem, Name = name, Checked = isChecked};
+
+            await itemViewModel.ChangeItem(checkItem);
+
+            ProgressbarPercentageToDo();
+        }
+
+        private void ProgressbarPercentageToDo()
+        {
+            if (items.Count != 0)
+            {
+                double todo = 0;
+                foreach (var item in items)
+                {
+                    if (item.Checked == false)
+                    {
+                        todo += 1;
+                    }
+                    else
+                    {
+                        todo += 0;
+                    }
+                }
+
+                PercentProgress = (todo / items.Count) * 100;
+                PercentProgress = Math.Round(PercentProgress, 2);
+                ProgressBar.Value = PercentProgress;
+
+                if (PercentProgress != 0)
+                {
+                    ProgressBarMessage.Text = PercentProgress + "% left to do!";
+                }
+                else
+                {
+                    ProgressBarMessage.Text = "You have completed all your tasks!";
+                }
+
             }
         }
     }
