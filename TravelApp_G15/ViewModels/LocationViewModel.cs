@@ -34,7 +34,7 @@ namespace TravelApp_G15.ViewModels
             Locations = new ObservableCollection<Location>();
         }
 
-        public async Task GetLocation(int tripID)
+        public async Task GetLocations(int tripID)
         {
             var url = _apiUrl + "/User/" + tripID + "/locations";
             var json = await _client.GetStringAsync(url);
@@ -57,7 +57,7 @@ namespace TravelApp_G15.ViewModels
 
             if (result.IsSuccessStatusCode)
             {
-                await GetLocation(tripID);
+                await GetLocations(tripID);
             }
         }
 

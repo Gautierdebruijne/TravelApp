@@ -86,7 +86,8 @@ namespace TravelApp_G15.Views
         {
             ("vacations", typeof(Dashboard)),
             ("items", typeof(TripDetail)),
-            ("tasks", typeof(Views.Task))
+            ("tasks", typeof(Views.Task)),
+            ("locations", typeof(Views.LocationPage))
         };
 
         private void Navigation_PaneOpened(NavigationView sender, object args)
