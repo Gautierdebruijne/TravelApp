@@ -5,7 +5,7 @@
     xmlns:local="using:TravelApp_G15.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:data="using:TravelApp_G15.Models"
+    xmlns:data="using:TravelApp_G15.Models" xmlns:muxc="using:Windows.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -41,6 +41,8 @@
                     <Run FontWeight="SemiBold" Text="It's time to"></Run>
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
+                <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Padding="0,15,0,0" Margin="15"></TextBlock>
+                <muxc:ProgressBar x:Name="ProgressBar" Width="130" Margin="99,50,177,0" Grid.Row="1" VerticalAlignment="Top"  />
 
                 <ListView x:Name="TaskList" HorizontalAlignment="Center" Grid.Row="2">
                     <ListView.ItemContainerStyle>
@@ -54,18 +56,13 @@
                             <StackPanel HorizontalAlignment="Left" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="auto" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-
-                                    <TextBlock Text="{Binding Name}" 
-                                        Grid.Column="1"
-                                        Width="auto" 
-                                        Grid.Row="0"
-                                        Margin="15"
-                                        FontSize="20"
-                                        FontWeight="Bold"/>
-                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding Checked}" />
+                                    
+                            
+                                    <CheckBox Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding TaskID}" IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name}"
+                                             Tapped="CheckBox_Tapped" />
                                 </Grid>
                             </StackPanel>
                         </DataTemplate>

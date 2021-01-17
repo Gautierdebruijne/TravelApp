@@ -36,8 +36,7 @@ namespace TravelApp_G15_API.Models
         public void AddCategory(Category category) => Categories.Add(category);
         public void AddItem(Item item) => Items.Add(item);
         public void AddTask(Task task) => Tasks.Add(task);
-
-
+       
 
         public void RemoveLocation(Location location) => Locations.Remove(location);
         public void RemoveCategory(Category category) => Categories.Remove(category);

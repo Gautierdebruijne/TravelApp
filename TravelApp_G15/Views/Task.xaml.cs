@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,15 +26,16 @@ namespace TravelApp_G15.Views
     /// </summary>
     public sealed partial class Task : Page
     {
-        private ICollection<TaskModel> tasks;
+        private ICollection<TaskModel> tasks = new List<TaskModel>();
         private TaskViewModel taskViewModel;
-
+        public double PercentProgress { get; set; }
         public Task()
         {
             this.InitializeComponent();
+            PercentProgress = 100;
             taskViewModel = new TaskViewModel();
-
             GetAllTasks(taskViewModel);
+            ProgressbarPercentageToDo();
         }
 
         private async void GetAllTasks(TaskViewModel viewModel)
@@ -44,6 +46,7 @@ namespace TravelApp_G15.Views
 
             tasks = viewModel.Tasks;
             TaskList.ItemsSource = tasks;
+            ProgressbarPercentageToDo();
         }
 
         #region Navigation
@@ -106,5 +109,61 @@ namespace TravelApp_G15.Views
             if (this.Frame.CanGoBack) this.Frame.GoBack();
         }
         #endregion
+
+        private async void CheckBox_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            int checkedTaskID = (int)(sender as CheckBox).Tag;
+            bool isCheckedTask = (bool)(sender as CheckBox).IsChecked;
+            string name = (string)(sender as CheckBox).Content;
+            TaskModel checkedTask = new TaskModel() { TaskID = checkedTaskID, Name = name, IsCheck = isCheckedTask };
+
+            await taskViewModel.ChangeTask(checkedTask);
+            
+
+            /* ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+             //local.Values["taskID"] = checkedTaskID;
+             int tripID = Int32.Parse(local.Values["tripID"].ToString());
+             // int taskID = Int32.Parse(local.Values["taskID"].ToString());*/
+
+            // taskViewModel.CheckTask(tripID, checkedTaskID);
+            ProgressbarPercentageToDo();
+        }
+
+        private void ProgressbarPercentageToDo()
+        {
+            if (tasks.Count != 0)
+            {
+                double todo = 0;
+                foreach (var task in tasks)
+                {
+                    if(task.IsCheck == false)
+                    {
+                        todo += 1;
+                    }
+                    else
+                    {
+                        todo += 0;
+                    }
+                }
+                Debug.WriteLine("sum: " + todo);
+                Debug.WriteLine("Count: " + tasks.Count);
+          
+                PercentProgress = (todo / tasks.Count) * 100;
+                PercentProgress = Math.Round(PercentProgress, 2);
+                ProgressBar.Value = PercentProgress;
+
+                if (PercentProgress != 0)
+                {
+                    ProgressBarMessage.Text = PercentProgress + "% left to do!";
+                }
+                else
+                {
+                    ProgressBarMessage.Text = "You have completed all your tasks!";
+                }
+               
+            }
+        }
+
+
     }
 }

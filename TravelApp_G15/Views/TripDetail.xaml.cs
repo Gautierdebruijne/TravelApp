@@ -47,8 +47,10 @@ namespace TravelApp_G15.Views
         {
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             int tripID = Int32.Parse(local.Values["tripID"].ToString());
-            await viewModel.GetAllItems(tripID);
 
+           // int categoryID = Int32.Parse(local.Values["categoryID"].ToString());
+            await viewModel.GetAllItems(tripID);
+           // await viewModel.GetItemsByCategorie(tripID, categoryID);
             items = viewModel.Items;
             ItemList.ItemsSource = items;
         }
