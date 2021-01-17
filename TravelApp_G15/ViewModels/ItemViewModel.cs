@@ -41,6 +41,8 @@ namespace TravelApp_G15.ViewModels
             var json = await _client.GetStringAsync(url);
             var items = JsonConvert.DeserializeObject<ObservableCollection<Item>>(json);
 
+            Items.Clear();
+
             foreach (var i in items)
                 Items.Add(i);
         }
