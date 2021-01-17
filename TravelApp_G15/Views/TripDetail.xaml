@@ -127,8 +127,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                
-
                 <Popup x:Name="popAdd" IsOpen="False" IsLightDismissEnabled="True"  VerticalAlignment="Bottom" HorizontalAlignment="Left" 
                                     LightDismissOverlayMode="On" Grid.Row="2" >
 
@@ -153,8 +151,8 @@
                     </StackPanel>
                 </Popup>
             </Grid>
-            <Line StrokeThickness="4" Stroke="#FF01A3ff" X1="0" X2="600"
-                    Y1="13" Y2="13" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!--<Line StrokeThickness="4" Stroke="#FF01A3ff" X1="0" X2="600"
+                    Y1="13" Y2="13" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>-->
 
             <Button x:Name="backButtonCat" Margin="470,260,0,0" VerticalAlignment="Top" Background="Transparent" Click="btnBackCategoryItems_Click"  Tag="backButtonCat" Visibility="Collapsed">
                 <SymbolIcon Symbol="Back"/>

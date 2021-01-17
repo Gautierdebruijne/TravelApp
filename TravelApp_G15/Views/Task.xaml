@@ -35,14 +35,17 @@
                     <RowDefinition Height="100" />
                     <RowDefinition Height="100" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
                     <Run FontWeight="SemiBold" Text="It's time to"></Run>
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
-                <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Padding="0,15,0,0" Margin="15"></TextBlock>
-                <muxc:ProgressBar x:Name="ProgressBar" Width="130" Margin="99,50,177,0" Grid.Row="1" VerticalAlignment="Top"  />
+
+                <muxc:ProgressBar x:Name="ProgressBar" Height="15" Width="300" Grid.Row="3" CornerRadius="5" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Grid.Row="4" FontSize="15" FontWeight="SemiBold" />
 
                 <ListView x:Name="TaskList" HorizontalAlignment="Center" Grid.Row="2" SelectionMode="None">
                     <ListView.ItemContainerStyle>
@@ -59,10 +62,9 @@
                                         <ColumnDefinition Width="auto" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    
                             
                                     <CheckBox Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding TaskID}" IsChecked="{Binding IsCheck, Mode=TwoWay}" Content="{Binding Name}"
-                                             Tapped="CheckBox_Tapped" />
+                                             Tapped="CheckBox_Tapped" FontSize="20" Margin="20"/>
                                 </Grid>
                             </StackPanel>
                         </DataTemplate>
