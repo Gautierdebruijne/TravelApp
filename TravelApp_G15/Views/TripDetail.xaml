@@ -51,9 +51,6 @@
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
-                <muxc:ProgressBar x:Name="ProgressBar" CornerRadius="5" Foreground="OrangeRed" Background="LightGreen" Height="25" Width="500" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 40 0 0"/>
-                <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Grid.Row="1" FontSize="15" FontWeight="SemiBold" Margin="0 42 0 0"/>
-
                 <ListView x:Name="CatList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -155,6 +152,10 @@
                         </Button>
                     </StackPanel>
                 </Popup>
+
+                <muxc:ProgressBar x:Name="ProgressBar" CornerRadius="5" Foreground="OrangeRed" Background="LightGreen" Height="25" Width="500" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40 40 0 0"/>
+                <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Grid.Row="5" FontSize="15" FontWeight="SemiBold" Margin="0 42 0 0"/>
+
             </Grid>
             <!--<Line StrokeThickness="4" Stroke="#FF01A3ff" X1="0" X2="600"
                     Y1="13" Y2="13" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>-->
