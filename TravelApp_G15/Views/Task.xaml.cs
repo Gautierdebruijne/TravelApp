@@ -164,6 +164,14 @@ namespace TravelApp_G15.Views
             }
         }
 
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void btnAddTask_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
