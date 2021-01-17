@@ -1,0 +1,88 @@
+﻿<Page
+    x:Class="TravelApp_G15.Login"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravelApp_G15"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Image Source="../assets/checkin.jpg" x:Name="background" Opacity="0.5" HorizontalAlignment="Left" Margin="37,87,0,87"/>
+
+        <Grid Height="650" VerticalAlignment="Center" HorizontalAlignment="Right" Width="800" Margin="0 0 50 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="lblWelcome" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50">
+                <Run FontWeight="SemiBold" Text="Welcome back, "></Run>
+                <Run Text="Traveller!" Foreground="#FF01A3ff"  FontWeight="Bold" x:Name="userName" />
+            </TextBlock>
+
+            <TextBox x:Name="txtEmail"
+                Grid.Row="1" 
+                PlaceholderText="Email"
+                FontSize="30" 
+                Foreground="#B3B3B3" 
+                Width="600" 
+                Height="75" 
+                Padding="11"
+                CornerRadius="20" 
+            />
+
+            <PasswordBox x:Name="txtPassword"
+                Grid.Row="2" 
+                PlaceholderText="Password"
+                FontSize="30" 
+                Foreground="#B3B3B3" 
+                Width="600" 
+                Height="75" 
+                Padding="11"
+                CornerRadius="20" 
+            />
+
+            <TextBlock x:Name="txtError"
+                Grid.Row="3"
+                FontSize="20"
+                Padding="10 0 0 0"
+                Foreground="OrangeRed" 
+                Width="600" 
+                Height="30" 
+            />
+
+            <Button x:Name="btnLogin"
+                Click="btnLogin_Click"
+                Grid.Row="4"   
+                Width="600"
+                Height="65"
+                CornerRadius="20"
+                HorizontalAlignment="Center"
+                Background="#FF01A3ff">
+
+                <StackPanel>
+                    <TextBlock Text="Login" FontSize="25" CharacterSpacing="75" FontWeight="SemiBold"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnRegister"
+                Click="btnRegister_Click"
+                Grid.Row="5"
+                HorizontalAlignment="Center"
+                Background="Transparent"
+                CornerRadius="20">
+
+                <StackPanel>
+                    <TextBlock Text="Don't have an account? Sign up!" FontSize="25" FontWeight="Normal"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>
