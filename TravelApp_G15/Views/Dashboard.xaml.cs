@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,14 +28,14 @@ namespace TravelApp_G15.Views
     /// </summary>
     public sealed partial class Dashboard : Page
     {
-        private ICollection<Trip> _trips;
+        private ObservableCollection<Trip> _trips;
         private TripViewModel tripViewModel;
 
         public Dashboard()
         {
             this.InitializeComponent();
             tripViewModel = new TripViewModel();
-            _trips = new List<Trip>();
+            _trips = new ObservableCollection<Trip>();
 
             GetAllTrips(tripViewModel);
         }
@@ -93,8 +94,72 @@ namespace TravelApp_G15.Views
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            popAdd.IsOpen = true;
         }
 
+        private async void btnAddTrip_Click(object sender, RoutedEventArgs e)
+        {
+            String date = "";
+            DateTime departure = DateTime.Now;
+
+            if (txtName.Text != "" && txtName.Text != null)
+            {
+                if(txtCountry.Text != "" && txtCountry.Text != null)
+                {
+                    if(txtCity.Text != "" && txtCity.Text != null)
+                    {
+                        try
+                        {
+                            date = datePicker.Date.Value.ToString();
+                            departure = Convert.ToDateTime(date);
+
+                            if (departure < DateTime.Now)
+                            {
+                                txtError.Text = "Departure date can't be in the past!";
+                            }
+                            else
+                            {
+                                await tripViewModel.AddTrip(txtName.Text, departure);
+                                popAdd.IsOpen = false;
+                            }
+                        }
+                        catch
+                        {
+                            txtError.Text = "Departure date is required!";
+                        }
+                    }
+                    else
+                    {
+                        txtError.Text = "City is required!";
+                    }
+                }
+                else
+                {
+                    txtError.Text = "Country is required!";
+                }
+            }
+            else
+            {
+                txtError.Text = "Name is required!";
+            }
+        }
+
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog deleteTrip = new ContentDialog
+            {
+                Title = "Are you sure you want to delete this trip?",
+                PrimaryButtonText = "Delete",
+                CloseButtonText = "Cancel"
+            };
+
+            ContentDialogResult result = await deleteTrip.ShowAsync();
+
+            if(result == ContentDialogResult.Primary)
+            {
+                int tripID = Int32.Parse((sender as Button).Tag.ToString());
+                await tripViewModel.DeleteTrip(tripID);
+            }
+        }
     }
 }

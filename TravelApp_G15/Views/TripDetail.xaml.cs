@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,8 +27,8 @@ namespace TravelApp_G15.Views
     /// </summary>
     public sealed partial class TripDetail : Page
     {
-        private ICollection<Item> items;
-        private ICollection<Category> categories;
+        private ObservableCollection<Item> items;
+        private ObservableCollection<Category> categories;
         private ItemViewModel itemViewModel;
         private CategoryViewModel catViewModel;
 
@@ -34,8 +36,8 @@ namespace TravelApp_G15.Views
         {
             this.InitializeComponent();
 
-            items = new List<Item>();
-            categories = new List<Category>();
+            items = new ObservableCollection<Item>();
+            categories = new ObservableCollection<Category>();
             itemViewModel = new ItemViewModel();
             catViewModel = new CategoryViewModel();
 
@@ -63,6 +65,20 @@ namespace TravelApp_G15.Views
 
             categories = viewModel.Categories;
             CatList.ItemsSource = categories;
+        }
+
+        private async void GetItemsPerCategorie(ItemViewModel viewModel)
+        {
+
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+            int categoryID = Int32.Parse(local.Values["categoryID"].ToString());
+            Debug.WriteLine("tripid is" + tripID);
+            Debug.WriteLine("catID is" + categoryID);
+            await viewModel.GetItemsByCategorie(tripID, categoryID);
+
+            items = viewModel.CategoryItems;
+            ItemList.ItemsSource = items;
         }
 
         #region Navigation
@@ -125,5 +141,53 @@ namespace TravelApp_G15.Views
             if (this.Frame.CanGoBack) this.Frame.GoBack();
         }
         #endregion
+
+        private void btnCategory_Click(object sender, RoutedEventArgs e)
+        {
+            var categoryID = (sender as Button).Tag;
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            local.Values["categoryID"] = categoryID;
+
+            GetItemsPerCategorie(itemViewModel);
+            backButtonCat.Visibility = Visibility.Visible;
+        }
+
+        private void btnBackCategoryItems_Click(object sender, RoutedEventArgs e)
+        {
+            GetAllItems(itemViewModel);
+            backButtonCat.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            popAdd.IsOpen = true;
+        }
+
+        private async void btnAddTrip_Click(object sender, RoutedEventArgs e)
+        {
+            txtError.Text = "";
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+
+            if (txtName.Text != "" && txtName.Text != null)
+            {
+                if(txtAmount.Text != "" && txtAmount.Text != null)
+                {
+                    await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
+                    popAdd.IsOpen = false;
+                }
+                else
+                {
+                    txtAmount.Text = "1";
+
+                    await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
+                    popAdd.IsOpen = false;
+                }
+            }
+            else
+            {
+                txtError.Text = "Name is required!";
+            }
+        }
     }
 }

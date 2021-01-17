@@ -15,6 +15,8 @@ namespace TravelApp_G15.ViewModels
     {
         public ObservableCollection<TaskModel> Tasks { get; set; }
         private HttpClient _client;
+        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
+        private string _apiUrl = "https://localhost:5001/api";
 
         public TaskViewModel()
         {
@@ -35,7 +37,7 @@ namespace TravelApp_G15.ViewModels
 
         public async Task GetAllTasks(int tripID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/tasks";
+            var url = _apiUrl + "/User/" + tripID + "/tasks";
             var json = await _client.GetStringAsync(url);
             var tasks = JsonConvert.DeserializeObject<ICollection<TaskModel>>(json);
 
@@ -49,7 +51,7 @@ namespace TravelApp_G15.ViewModels
         {
             TaskModel task = new TaskModel() { Name = name, IsCheck = false };
             var taskJson = JsonConvert.SerializeObject(task);
-            var url = "https://localhost:5001/api/User/" + tripID + "/addTask";
+            var url = _apiUrl + "/User/" + tripID + "/addTask";
 
             var result = await _client.PostAsync(url, new StringContent(taskJson, Encoding.UTF8, "application/json"));
 
@@ -59,9 +61,9 @@ namespace TravelApp_G15.ViewModels
             }
         }
 
-        /*   public async Task CheckTask(int tripID, int taskID)
-           {
-               var url = "https://localhost:5001/api/User/" + tripID + "/Task/" + taskID;
+        public async Task ChangeItem(int taskID, int tripID)
+        {
+            var url = "https://localhost:5001/api/User/" + tripID + "/Item/" + taskID;
 
                var res = await _client.PutAsync(url, null);
            }
@@ -79,7 +81,7 @@ namespace TravelApp_G15.ViewModels
 
         public async Task DeleteTaskAsync(int tripID, int taskID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/Task/" + taskID;
+            var url = _apiUrl + "/User/" + tripID + "/Task/" + taskID;
 
             var res = await _client.DeleteAsync(url);
 

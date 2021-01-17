@@ -44,7 +44,7 @@
                 <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Padding="0,15,0,0" Margin="15"></TextBlock>
                 <muxc:ProgressBar x:Name="ProgressBar" Width="130" Margin="99,50,177,0" Grid.Row="1" VerticalAlignment="Top"  />
 
-                <ListView x:Name="TaskList" HorizontalAlignment="Center" Grid.Row="2">
+                <ListView x:Name="TaskList" HorizontalAlignment="Center" Grid.Row="2" SelectionMode="None">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
