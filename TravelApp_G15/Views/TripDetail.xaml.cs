@@ -142,18 +142,11 @@ namespace TravelApp_G15.Views
 
         private void btnCategory_Click(object sender, RoutedEventArgs e)
         {
-            backButtonCat.Visibility = Visibility.Visible;
             var categoryID = (sender as Button).Tag;
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             local.Values["categoryID"] = categoryID;
 
             GetItemsPerCategorie(itemViewModel);
-        }
-
-        private void btnBackCategoryItems_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(TripDetail));
-            backButtonCat.Visibility = Visibility.Collapsed;
         }
     }
 }

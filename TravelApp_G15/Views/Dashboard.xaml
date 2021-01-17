@@ -34,7 +34,7 @@
                     <RowDefinition Height="100" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="50" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="75" />
                 </Grid.RowDefinitions>
 
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
@@ -84,16 +84,16 @@
                 </ListView>
 
                 <Line StrokeThickness="4" Stroke="#FF01A3ff" X1="0" X2="350"
-                    Y1="13" Y2="13" />
+                    Y1="13" Y2="13" Grid.Row="3" HorizontalAlignment="Center"/>
                 
                 <Button x:Name="btnAdd" Background="Transparent" Click="btnAdd_Click" 
                         Tag="{Binding TripID}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                        Grid.Row="3" BorderThickness="1">
+                        Grid.Row="4" BorderThickness="1" Margin="15">
                     <SymbolIcon Symbol="Add" Foreground="Green"/>
                 </Button>
 
                 <Popup x:Name="popAdd" IsOpen="False" IsLightDismissEnabled="True"  VerticalAlignment="Bottom" HorizontalAlignment="Left" 
-                                    LightDismissOverlayMode="On" Grid.Row="4">
+                                    LightDismissOverlayMode="On" Grid.Row="2">
 
                     <StackPanel HorizontalAlignment="Left">
                         <TextBlock Text="Let's name this trip!" FontSize="20" FontWeight="SemiBold" Margin="20"/>
