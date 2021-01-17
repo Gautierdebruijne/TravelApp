@@ -163,17 +163,21 @@ namespace TravelApp_G15.Views
             popAdd.IsOpen = true;
         }
 
-        private async void btnAddTrip_Click(object sender, RoutedEventArgs e)
+        private async void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
             txtError.Text = "";
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             int tripID = Int32.Parse(local.Values["tripID"].ToString());
+           // int cateID = Int32.Parse(local.Values["catID"].ToString());
+            //int iID = (int)(sender as ).Tag;
 
             if (txtName.Text != "" && txtName.Text != null)
             {
                 if(txtAmount.Text != "" && txtAmount.Text != null)
                 {
                     await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
+                    
+                    //await itemViewModel.AddItemToCategory(tripID, cateID, );
                     popAdd.IsOpen = false;
                 }
                 else
