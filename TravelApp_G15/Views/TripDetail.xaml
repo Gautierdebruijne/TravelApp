@@ -48,7 +48,7 @@
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
 
-                <ListView x:Name="CatList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0">
+                <ListView x:Name="CatList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" SelectionMode="None">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -81,7 +81,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <ListView x:Name="ItemList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1">
+                <ListView x:Name="ItemList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" SelectionMode="None">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -111,9 +111,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
-            <Button x:Name="backButtonCat" Margin="470,260,0,0" VerticalAlignment="Top" Background="Transparent" Click="btnBackCategoryItems_Click" Tag="backButtonCat" Visibility="Collapsed">
-                <SymbolIcon Symbol="Back"/>
-            </Button>
         </Grid>
     </Grid>
 </Page>

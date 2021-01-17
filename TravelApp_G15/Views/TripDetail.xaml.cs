@@ -47,9 +47,6 @@ namespace TravelApp_G15.Views
 
         private async void GetAllItems(ItemViewModel viewModel)
         {
-            viewModel.Items.Clear();
-            items.Clear();
-            
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             int tripID = Int32.Parse(local.Values["tripID"].ToString());
             await viewModel.GetAllItems(tripID);
@@ -145,18 +142,11 @@ namespace TravelApp_G15.Views
 
         private void btnCategory_Click(object sender, RoutedEventArgs e)
         {
-            backButtonCat.Visibility = Visibility.Visible;
             var categoryID = (sender as Button).Tag;
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
             local.Values["categoryID"] = categoryID;
 
             GetItemsPerCategorie(itemViewModel);
-        }
-
-        private void btnBackCategoryItems_Click(object sender, RoutedEventArgs e)
-        {
-            GetAllItems(itemViewModel);
-            backButtonCat.Visibility = Visibility.Collapsed;
         }
     }
 }
