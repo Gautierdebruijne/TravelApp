@@ -29,13 +29,10 @@
             </Frame.ContentTransitions>
         </Frame>
       
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Margin="50" FontSize="50">
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Margin="50" FontSize="50" Grid.Row="0">
                     <Run FontWeight="SemiBold" Text="It's time to"></Run>
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
         </TextBlock>
-        
-        <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Padding="0,15,0,0" Margin="15"></TextBlock>
-        <muxc:ProgressBar x:Name="ProgressBar" Width="130" Margin="99,50,177,0" Grid.Row="1" VerticalAlignment="Top"  />
 
         <Grid>
             <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50">
@@ -52,6 +49,9 @@
                     <ColumnDefinition Width="400"/>
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
+
+                <muxc:ProgressBar x:Name="ProgressBar" CornerRadius="5" Foreground="OrangeRed" Background="LightGreen" Height="25" Width="500" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 40 0 0"/>
+                <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Grid.Row="1" FontSize="15" FontWeight="SemiBold" Margin="0 42 0 0"/>
 
                 <ListView x:Name="CatList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0">
                     <ListView.ItemContainerStyle>
@@ -105,8 +105,8 @@
                             <StackPanel HorizontalAlignment="Left" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200" />
                                         <ColumnDefinition Width="50" />
-                                        <ColumnDefinition Width="300" />
                                         <ColumnDefinition Width="50" />
                                         <ColumnDefinition Width="75" />
                                     </Grid.ColumnDefinitions>
@@ -120,13 +120,11 @@
                                     <TextBlock Grid.Column="1" Width="auto" Grid.Row="0"
                                         Margin="15" FontSize="20" FontWeight="Bold" Text="{Binding Amount}">
                                     </TextBlock>
-                                    <CheckBox Tapped="CheckBox_Tapped"  Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding ItemID}" IsChecked="{Binding Checked, Mode=TwoWay}" Content="{Binding Name}"/>
+                                    <CheckBox Tapped="CheckBox_Tapped" Width="200" Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding ItemID}" IsChecked="{Binding Checked, Mode=TwoWay}" Content="{Binding Name}"/>
                             
                                     <Button x:Name="btnDelete" Grid.Column="2" HorizontalAlignment="Right" Background="Transparent" Click="btnDelete_Click" Tag="{Binding TripID}">
                                         <SymbolIcon Symbol="Delete" />
                                     </Button>
-
-                                    
                                 </Grid>
                             </StackPanel>
                         </DataTemplate>
