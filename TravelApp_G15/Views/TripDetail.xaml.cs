@@ -148,5 +148,37 @@ namespace TravelApp_G15.Views
 
             GetItemsPerCategorie(itemViewModel);
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            popAdd.IsOpen = true;
+        }
+
+        private async void btnAddTrip_Click(object sender, RoutedEventArgs e)
+        {
+            txtError.Text = "";
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+
+            if (txtName.Text != "" && txtName.Text != null)
+            {
+                if(txtAmount.Text != "" && txtAmount.Text != null)
+                {
+                    await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
+                    popAdd.IsOpen = false;
+                }
+                else
+                {
+                    txtAmount.Text = "1";
+
+                    await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
+                    popAdd.IsOpen = false;
+                }
+            }
+            else
+            {
+                txtError.Text = "Name is required!";
+            }
+        }
     }
 }

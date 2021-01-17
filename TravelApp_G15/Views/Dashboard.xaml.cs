@@ -120,6 +120,7 @@ namespace TravelApp_G15.Views
                             else
                             {
                                 await tripViewModel.AddTrip(txtName.Text, departure);
+                                popAdd.IsOpen = false;
                             }
                         }
                         catch
