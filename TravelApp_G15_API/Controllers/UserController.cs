@@ -469,7 +469,7 @@ namespace TravelApp_G15_API.Controllers
             return NoContent();
         }
 
-        [HttpPut("{tripID}/Task/{taskID}")]
+/*        [HttpPut("{tripID}/Task/{taskID}")]
         public IActionResult CheckTask(int tripID, int taskID)
         {
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
@@ -478,6 +478,21 @@ namespace TravelApp_G15_API.Controllers
                 return NoContent();
 
             task.isChecked = !task.isChecked;
+            _tripRepository.UpdateTrip(trip);
+            _tripRepository.SaveChanges();
+
+            return NoContent();
+        }*/
+
+        [HttpPut("{tripID}/Task/{taskID}")]
+        public IActionResult CheckTask(int tripID, int taskID, Models.Task taskmodel)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+
+            _tripRepository.CheckTask(trip.TripID, taskID, taskmodel);
+
+
             _tripRepository.UpdateTrip(trip);
             _tripRepository.SaveChanges();
 

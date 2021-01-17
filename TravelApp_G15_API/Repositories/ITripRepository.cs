@@ -21,7 +21,7 @@ namespace TravelApp_G15_API.Repositories
         bool TryGetTask(int tripID, int taskID, out Models.Task task);
         bool TryGetTasks(int tripID, out List<Models.Task> tasks);
         bool TryGetItemsFromCategory(int id, int categoryID, out List<Item> items);
-
+        void CheckTask(int id, int taskID, Models.Task task);
 
         void AddTrip(Trip t);
         void DeleteTrip(Trip t);

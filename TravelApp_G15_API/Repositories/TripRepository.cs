@@ -134,6 +134,14 @@ namespace TravelApp_G15_API.Repositories
             _context.SaveChanges();
         }
 
-      
+        public void CheckTask(int id, int taskID, Models.Task task)
+        {
+            var trip = _trips.Include(l => l.Tasks).FirstOrDefault(a => a.TripID == id);
+
+            Models.Task tasktodo = trip.Tasks.FirstOrDefault(t => t.TaskID == taskID);
+
+            tasktodo.Name = task.Name;
+            tasktodo.isChecked = task.isChecked;
+        }
     }
 }
