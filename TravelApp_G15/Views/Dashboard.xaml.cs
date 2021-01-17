@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,14 +28,14 @@ namespace TravelApp_G15.Views
     /// </summary>
     public sealed partial class Dashboard : Page
     {
-        private ICollection<Trip> _trips;
+        private ObservableCollection<Trip> _trips;
         private TripViewModel tripViewModel;
 
         public Dashboard()
         {
             this.InitializeComponent();
             tripViewModel = new TripViewModel();
-            _trips = new List<Trip>();
+            _trips = new ObservableCollection<Trip>();
 
             GetAllTrips(tripViewModel);
         }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -12,7 +13,7 @@ namespace TravelApp_G15.ViewModels
 {
     class TripViewModel
     {
-        public ICollection<Trip> Trips;
+        public ObservableCollection<Trip> Trips;
         private HttpClient _client;
 
         public TripViewModel()
@@ -28,14 +29,14 @@ namespace TravelApp_G15.ViewModels
             _client = new HttpClient(clientHandler);
             _client.DefaultRequestHeaders.Add("Authorization", token);
 
-            Trips = new List<Trip>();
+            Trips = new ObservableCollection<Trip>();
         }
 
         public async Task GetAllTrips()
         {
             var url = "https://localhost:5001/api/User/trips";
             var json = await _client.GetStringAsync(url);
-            var trips = JsonConvert.DeserializeObject<ICollection<Trip>>(json);
+            var trips = JsonConvert.DeserializeObject<ObservableCollection<Trip>>(json);
 
             foreach(var t in trips)
             {
