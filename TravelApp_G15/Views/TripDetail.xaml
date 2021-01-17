@@ -29,6 +29,11 @@
             </Frame.ContentTransitions>
         </Frame>
 
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" Margin="50" FontSize="50">
+                    <Run FontWeight="SemiBold" Text="It's time to"></Run>
+                    <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
+        </TextBlock>
+        
         <Grid>
             <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50">
                 <Grid.RowDefinitions>
@@ -41,17 +46,11 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="400"/>
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
-                    <Run FontWeight="SemiBold" Text="It's time to"></Run>
-                    <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
-                </TextBlock>
-
-                <ListView x:Name="CatList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" SelectionMode="None">
+                <ListView x:Name="CatList" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -64,7 +63,8 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="50" />
-                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="200" />
+                                        <ColumnDefinition Width="75" />
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="{Binding Name}" 
@@ -77,6 +77,12 @@
 
                                     <Button x:Name="btnCategory" Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Click="btnCategory_Click" Tag="{Binding CategoryID}">
                                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70D;"/>
+                                    </Button>
+
+                                    <Button x:Name="btnAdd" Background="Transparent" Click="btnAdd_Click" 
+                                            Tag="{Binding TripID}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                            Grid.Row="4" Grid.Column="2" BorderThickness="1" Margin="15">
+                                        <SymbolIcon Symbol="Add" Foreground="Green"/>
                                     </Button>
                                 </Grid>
                             </StackPanel>
@@ -97,7 +103,9 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="50" />
-                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="300" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="75" />
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Column="1" Width="auto" Grid.Row="0"
@@ -108,20 +116,18 @@
                                     </TextBlock>
 
                                     <CheckBox Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding Checked}" />
+                                    <Button x:Name="btnDelete" Grid.Column="2" HorizontalAlignment="Right" Background="Transparent" Click="btnDelete_Click" Tag="{Binding TripID}">
+                                        <SymbolIcon Symbol="Delete" />
+                                    </Button>
+
+                                    
                                 </Grid>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Line StrokeThickness="4" Stroke="#FF01A3ff" X1="0" X2="350"
-                    Y1="13" Y2="13" Grid.Row="3" HorizontalAlignment="Center"/>
-
-                <Button x:Name="btnAdd" Background="Transparent" Click="btnAdd_Click" 
-                        Tag="{Binding TripID}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                        Grid.Row="4" BorderThickness="1" Margin="15">
-                    <SymbolIcon Symbol="Add" Foreground="Green"/>
-                </Button>
+                
 
                 <Popup x:Name="popAdd" IsOpen="False" IsLightDismissEnabled="True"  VerticalAlignment="Bottom" HorizontalAlignment="Left" 
                                     LightDismissOverlayMode="On" Grid.Row="2" >
@@ -147,6 +153,9 @@
                     </StackPanel>
                 </Popup>
             </Grid>
+            <Line StrokeThickness="4" Stroke="#FF01A3ff" X1="0" X2="350"
+                    Y1="13" Y2="13" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
             <Button x:Name="backButtonCat" Margin="470,260,0,0" VerticalAlignment="Top" Background="Transparent" Click="btnBackCategoryItems_Click"  Tag="backButtonCat" Visibility="Collapsed">
                 <SymbolIcon Symbol="Back"/>
             </Button>
