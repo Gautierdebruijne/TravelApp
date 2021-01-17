@@ -15,6 +15,8 @@ namespace TravelApp_G15.ViewModels
     {
         public ObservableCollection<Category> Categories;
         private HttpClient _client;
+        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
+        private string _apiUrl = "https://localhost:5001/api";
 
         public CategoryViewModel()
         {
@@ -34,7 +36,7 @@ namespace TravelApp_G15.ViewModels
 
         public async Task GetAllCategories(int tripID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/categories";
+            var url = _apiUrl + "/User/" + tripID + "/categories";
             var json = await _client.GetStringAsync(url);
             var categories = JsonConvert.DeserializeObject<ObservableCollection<Category>>(json);
 
@@ -46,7 +48,7 @@ namespace TravelApp_G15.ViewModels
         {
             var category = new Category { Name = name };
             var categorieJson = JsonConvert.SerializeObject(category);
-            var url = "https://localhost:5001/api/User/" + tripID + "/addCategory";
+            var url = _apiUrl + "/User/" + tripID + "/addCategory";
 
             var result = await _client.PostAsync(url, new StringContent(categorieJson, Encoding.UTF8, "application/json"));
 
@@ -58,7 +60,7 @@ namespace TravelApp_G15.ViewModels
 
         public async Task DeleteCategory(int categoryID, int tripID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/Category/" + categoryID;
+            var url = _apiUrl + "/User/" + tripID + "/Category/" + categoryID;
 
             var res = await _client.DeleteAsync(url);
         }
