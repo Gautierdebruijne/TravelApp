@@ -167,7 +167,7 @@ namespace TravelApp_G15.Views
             popAdd.IsOpen = true;
         }
 
-        private void btnAddTask_Click(object sender, RoutedEventArgs e)
+        private async void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
             txtError.Text = "";
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
@@ -175,7 +175,7 @@ namespace TravelApp_G15.Views
 
             if (txtName.Text != "" && txtName.Text != null)
             {
-                taskViewModel.AddTask(txtName.Text, tripID);
+                await taskViewModel.AddTask(txtName.Text, tripID);
                 popAdd.IsOpen = false;
             }
             else
