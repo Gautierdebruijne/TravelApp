@@ -19,6 +19,7 @@
 
                 <NavigationViewItem Icon="Bullets" Content="Items" Tag="items" FontSize="20"/>
                 <NavigationViewItem Icon="Copy" Content="Tasks" Tag="tasks" FontSize="20"/>
+                <NavigationViewItem Icon="Globe" Content="Locations" Tag="locations" FontSize="20" />
             </NavigationView.MenuItems>
         </NavigationView>
         <Frame x:Name="Content">
