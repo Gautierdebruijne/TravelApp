@@ -147,6 +147,13 @@ namespace TravelApp_G15.Views
             local.Values["categoryID"] = categoryID;
 
             GetItemsPerCategorie(itemViewModel);
+            backButtonCat.Visibility = Visibility.Visible;
+        }
+
+        private void btnBackCategoryItems_Click(object sender, RoutedEventArgs e)
+        {
+            GetAllItems(itemViewModel);
+            backButtonCat.Visibility = Visibility.Collapsed;
         }
     }
 }
