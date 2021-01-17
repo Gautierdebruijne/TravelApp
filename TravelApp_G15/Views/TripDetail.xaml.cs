@@ -193,5 +193,27 @@ namespace TravelApp_G15.Views
                 txtError.Text = "Name is required!";
             }
         }
+
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+
+            ContentDialog deleteItem = new ContentDialog
+            {
+                Title = "Are you sure you want to delete this trip?",
+                PrimaryButtonText = "Delete",
+                CloseButtonText = "Cancel"
+            };
+
+            ContentDialogResult result = await deleteItem.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                int itemID = Int32.Parse((sender as Button).Tag.ToString());
+                await itemViewModel.DeleteItem(tripID, itemID);
+                GetAllItems(itemViewModel);
+            }
+        }
     }
 }
