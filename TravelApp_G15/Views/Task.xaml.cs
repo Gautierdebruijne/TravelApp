@@ -166,7 +166,7 @@ namespace TravelApp_G15.Views
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            popAdd.IsOpen = true;
         }
 
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
