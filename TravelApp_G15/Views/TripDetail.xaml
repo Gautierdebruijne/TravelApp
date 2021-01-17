@@ -16,7 +16,7 @@
                 <NavigationViewItemHeader x:Name="Menu" Content=""/>
                 <NavigationViewItem Icon="World" Content="Vacations" Tag="vacations" FontSize="20"/>
                 <NavigationViewItemSeparator />
-                
+
                 <NavigationViewItem Icon="Bullets" Content="Items" Tag="items" FontSize="20"/>
                 <NavigationViewItem Icon="Copy" Content="Tasks" Tag="tasks" FontSize="20"/>
             </NavigationView.MenuItems>
@@ -71,6 +71,10 @@
                                         Margin="15"
                                         FontSize="20"
                                         FontWeight="Bold"/>
+
+                                    <Button x:Name="btnCategory" Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Click="btnCategory_Click" Tag="{Binding CategoryID}">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70D;"/>
+                                    </Button>
                                 </Grid>
                             </StackPanel>
                         </DataTemplate>
@@ -99,7 +103,7 @@
                                         <Run Text="{Binding Amount}" />
                                         <Run Text="{Binding Name}" />
                                     </TextBlock>
-                                    
+
                                     <CheckBox Grid.Column="0" HorizontalAlignment="Left" Background="Transparent" Tag="{Binding Checked}" />
                                 </Grid>
                             </StackPanel>
@@ -107,6 +111,9 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
+            <Button Margin="470,260,0,0" VerticalAlignment="Top" Background="Transparent" Tag="backButtonCat">
+                <SymbolIcon Symbol="Back"/>
+            </Button>
         </Grid>
     </Grid>
 </Page>

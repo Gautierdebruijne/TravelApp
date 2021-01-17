@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -12,8 +13,8 @@ namespace TravelApp_G15.ViewModels
 {
     class ItemViewModel
     {
-        public List<Item> Items;
-        public List<Item> CategoryItems;
+        public ObservableCollection<Item> Items;
+        public ObservableCollection<Item> CategoryItems;
         private HttpClient _client;
 
         public ItemViewModel()
@@ -29,8 +30,8 @@ namespace TravelApp_G15.ViewModels
             _client = new HttpClient(clientHandler);
             _client.DefaultRequestHeaders.Add("Authorization", token);
 
-            Items = new List<Item>();
-            CategoryItems = new List<Item>();
+            Items = new ObservableCollection<Item>();
+            CategoryItems = new ObservableCollection<Item>();
         }
 
         #region Get
@@ -38,7 +39,7 @@ namespace TravelApp_G15.ViewModels
         {
             var url = "https://localhost:5001/api/User/" + tripID + "/items";
             var json = await _client.GetStringAsync(url);
-            var items = JsonConvert.DeserializeObject<ICollection<Item>>(json);
+            var items = JsonConvert.DeserializeObject<ObservableCollection<Item>>(json);
 
             foreach (var i in items)
                 Items.Add(i);
@@ -46,9 +47,11 @@ namespace TravelApp_G15.ViewModels
 
         public async Task GetItemsByCategorie(int tripID, int categorieID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/Category/" + categorieID;
+            var url = "https://localhost:5001/api/User/" + tripID + "/Category/" + categorieID + "/items";
             var json = await _client.GetStringAsync(url);
-            var items = JsonConvert.DeserializeObject<ICollection<Item>>(json);
+            var items = JsonConvert.DeserializeObject<ObservableCollection<Item>>(json);
+
+            CategoryItems.Clear();
 
             foreach (var i in items)
                 CategoryItems.Add(i);
