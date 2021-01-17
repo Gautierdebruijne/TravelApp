@@ -16,6 +16,8 @@ namespace TravelApp_G15.ViewModels
         public ObservableCollection<Item> Items;
         public ObservableCollection<Item> CategoryItems;
         private HttpClient _client;
+        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
+        private string _apiUrl = "https://localhost:5001/api";
 
         public ItemViewModel()
         {
@@ -37,7 +39,7 @@ namespace TravelApp_G15.ViewModels
         #region Get
         public async Task GetAllItems(int tripID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/items";
+            var url = _apiUrl + "/User/" + tripID + "/items";
             var json = await _client.GetStringAsync(url);
             var items = JsonConvert.DeserializeObject<ObservableCollection<Item>>(json);
 
@@ -49,7 +51,7 @@ namespace TravelApp_G15.ViewModels
 
         public async Task GetItemsByCategorie(int tripID, int categorieID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/Category/" + categorieID + "/items";
+            var url = _apiUrl + "/User/" + tripID + "/Category/" + categorieID + "/items";
             var json = await _client.GetStringAsync(url);
             var items = JsonConvert.DeserializeObject<ObservableCollection<Item>>(json);
 
@@ -65,7 +67,7 @@ namespace TravelApp_G15.ViewModels
         {
             var item = new Item { Name = name, Amount = amount, Checked = false, Category = null };
             var itemJson = JsonConvert.SerializeObject(item);
-            var url = "https://localhost:5001/api/User/" + tripID + "/addItem";
+            var url = _apiUrl + "/User/" + tripID + "/addItem";
 
 
             var res = await _client.PostAsync(url, new StringContent(itemJson, Encoding.UTF8, "application/json"));
@@ -78,7 +80,7 @@ namespace TravelApp_G15.ViewModels
 
         public async Task AddItemToCategory(int tripID, int categorieID, int itemID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/" + categorieID + "/Categorie/" + itemID + "/addItemToCategory";
+            var url = _apiUrl + "/User/" + tripID + "/" + categorieID + "/Categorie/" + itemID + "/addItemToCategory";
             var result = await _client.PostAsync(url, null);
         }
         #endregion
@@ -86,7 +88,7 @@ namespace TravelApp_G15.ViewModels
         #region Put
         public async Task ChangeItem(int itemID, int tripID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/Task/" + itemID;
+            var url = _apiUrl + "/User/" + tripID + "/Task/" + itemID;
 
             var res = await _client.PutAsync(url, null);
         }
@@ -95,7 +97,7 @@ namespace TravelApp_G15.ViewModels
         #region Delete
         public async Task DeleteItem(int tripID, int itemID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/Items/" + itemID;
+            var url = _apiUrl + "/User/" + tripID + "/Items/" + itemID;
 
             var result = await _client.DeleteAsync(url);
         }

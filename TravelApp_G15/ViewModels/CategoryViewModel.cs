@@ -15,7 +15,7 @@ namespace TravelApp_G15.ViewModels
     {
         public ObservableCollection<Category> Categories;
         private HttpClient _client;
-        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/";
+        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
         private string _apiUrl = "https://localhost:5001/api";
 
         public CategoryViewModel()

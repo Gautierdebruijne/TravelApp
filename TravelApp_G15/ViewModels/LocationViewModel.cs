@@ -15,6 +15,8 @@ namespace TravelApp_G15.ViewModels
     {
         public ObservableCollection<Location> Locations { get; set; }
         private HttpClient _client;
+        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
+        private string _apiUrl = "https://localhost:5001/api";
 
         public LocationViewModel()
         {
@@ -34,7 +36,7 @@ namespace TravelApp_G15.ViewModels
 
         public async Task GetLocation(int tripID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/locations";
+            var url = _apiUrl + "/User/" + tripID + "/locations";
             var json = await _client.GetStringAsync(url);
             var items = JsonConvert.DeserializeObject<ObservableCollection<Location>>(json);
 
@@ -48,7 +50,7 @@ namespace TravelApp_G15.ViewModels
         {
             var location = new Location { Country = country, City = city };
             var locationJson = JsonConvert.SerializeObject(location);
-            var url = "https://localhost:5001/api/User/" + tripID + "/addLocation";
+            var url = _apiUrl + "/User/" + tripID + "/addLocation";
 
 
             var result = await _client.PostAsync(url, new StringContent(locationJson, Encoding.UTF8, "application/json"));
@@ -61,7 +63,7 @@ namespace TravelApp_G15.ViewModels
 
         public async Task DeleteLocation(int tripID, int locationID)
         {
-            var url = "https://localhost:5001/api/User/" + tripID + "/Location/" + locationID;
+            var url = _apiUrl + "/User/" + tripID + "/Location/" + locationID;
 
             var result = await _client.DeleteAsync(url);
         }
