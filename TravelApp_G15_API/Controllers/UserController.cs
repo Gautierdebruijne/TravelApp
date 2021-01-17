@@ -453,7 +453,7 @@ namespace TravelApp_G15_API.Controllers
         #endregion
 
         #region put 
-        [HttpPut("{tripID}/Item/{itemID}")]
+/*        [HttpPut("{tripID}/Item/{itemID}")]
         public IActionResult CheckItem(int tripID, int itemID)
         {
             if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
@@ -467,7 +467,7 @@ namespace TravelApp_G15_API.Controllers
             _tripRepository.SaveChanges();
 
             return NoContent();
-        }
+        }*/
 
 /*        [HttpPut("{tripID}/Task/{taskID}")]
         public IActionResult CheckTask(int tripID, int taskID)
@@ -493,6 +493,21 @@ namespace TravelApp_G15_API.Controllers
             _tripRepository.CheckTask(trip.TripID, taskID, taskmodel);
 
 
+            _tripRepository.UpdateTrip(trip);
+            _tripRepository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPut("{tripID}/Item/{itemID}")]
+        public IActionResult CheckItem(int tripID, int itemID, Item item)
+        {
+            if (!_userRepository.TryGetTrip(getLoggedUser().UserID, tripID, out var trip))
+                return NoContent();
+
+            _tripRepository.CheckItem(trip.TripID, itemID, item);
+
+            
             _tripRepository.UpdateTrip(trip);
             _tripRepository.SaveChanges();
 

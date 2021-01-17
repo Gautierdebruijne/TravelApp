@@ -145,9 +145,7 @@ namespace TravelApp_G15.Views
                         todo += 0;
                     }
                 }
-                Debug.WriteLine("sum: " + todo);
-                Debug.WriteLine("Count: " + tasks.Count);
-          
+           
                 PercentProgress = (todo / tasks.Count) * 100;
                 PercentProgress = Math.Round(PercentProgress, 2);
                 ProgressBar.Value = PercentProgress;
@@ -164,6 +162,26 @@ namespace TravelApp_G15.Views
             }
         }
 
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            popAdd.IsOpen = true;
+        }
 
+        private void btnAddTask_Click(object sender, RoutedEventArgs e)
+        {
+            txtError.Text = "";
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+
+            if (txtName.Text != "" && txtName.Text != null)
+            {
+                taskViewModel.AddTask(txtName.Text, tripID);
+                popAdd.IsOpen = false;
+            }
+            else
+            {
+                txtError.Text = "Name is required!";
+            }
+        }
     }
 }

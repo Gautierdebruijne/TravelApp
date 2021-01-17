@@ -143,5 +143,15 @@ namespace TravelApp_G15_API.Repositories
             tasktodo.Name = task.Name;
             tasktodo.isChecked = task.isChecked;
         }
+
+        public void CheckItem(int id, int itemID, Item item)
+        {
+            var trip = _trips.Include(l => l.Items).FirstOrDefault(a => a.TripID == id);
+
+            Item done = trip.Items.FirstOrDefault(t => t.ItemID == itemID);
+
+            done.Name = item.Name;
+            done.Checked = item.Checked;
+        }
     }
 }
