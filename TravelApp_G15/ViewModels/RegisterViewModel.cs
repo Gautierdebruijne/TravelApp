@@ -13,8 +13,8 @@ namespace TravelApp_G15.ViewModels
     class RegisterViewModel
     {
         public bool Success { get; set; } = false;
-        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
-        private string _apiUrl = "https://localhost:5001/api";
+        private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
+        //private string _apiUrl = "https://localhost:5001/api";
 
         public async Task<String> Register(string name, string email, string password)
         {

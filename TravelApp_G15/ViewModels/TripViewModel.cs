@@ -15,8 +15,8 @@ namespace TravelApp_G15.ViewModels
     {
         public ObservableCollection<Trip> Trips;
         private HttpClient _client;
-        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
-        private string _apiUrl = "https://localhost:5001/api";
+        private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
+        //private string _apiUrl = "https://localhost:5001/api";
 
         public TripViewModel()
         {
