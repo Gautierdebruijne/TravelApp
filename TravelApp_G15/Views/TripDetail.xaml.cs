@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using TravelApp_G15.Models;
 using TravelApp_G15.ViewModels;
 using Windows.Foundation;
@@ -73,6 +74,9 @@ namespace TravelApp_G15.Views
             categories = viewModel.Categories;
             CatList.ItemsSource = categories;
 
+            if(categories.Count == 0 || categories == null) { 
+            }
+
             ProgressbarPercentageToDo();
 
         }
@@ -84,7 +88,15 @@ namespace TravelApp_G15.Views
             int categoryID = Int32.Parse(local.Values["categoryID"].ToString());
             Debug.WriteLine("tripid is" + tripID);
             Debug.WriteLine("catID is" + categoryID);
-            await viewModel.GetItemsByCategorie(tripID, categoryID);
+
+            try
+            {
+                await viewModel.GetItemsByCategorie(tripID, categoryID);
+            }
+            catch(Exception e)
+            {
+                txtError.Text = e.Message.ToString();
+            }
 
             items = viewModel.CategoryItems;
             ItemList.ItemsSource = items;
@@ -164,27 +176,24 @@ namespace TravelApp_G15.Views
             backButtonCat.Visibility = Visibility.Visible;
 
             ProgressbarPercentageToDo();
-
         }
 
         private void btnBackCategoryItems_Click(object sender, RoutedEventArgs e)
         {
             GetAllItems(itemViewModel);
             backButtonCat.Visibility = Visibility.Collapsed;
-
+            
             ProgressbarPercentageToDo();
-
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
             popAdd.IsOpen = true;
 
             ProgressbarPercentageToDo();
-
         }
 
-        private async void btnAddItem_Click(object sender, RoutedEventArgs e)
+        private async void popAddItem_Click(object sender, RoutedEventArgs e)
         {
             txtError.Text = "";
             ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
@@ -197,7 +206,7 @@ namespace TravelApp_G15.Views
 
             if (txtName.Text != "" && txtName.Text != null)
             {
-                if(txtAmount.Text != "" && txtAmount.Text != null)
+                if(txtAmount.Text != "" && txtAmount.Text != null && Regex.IsMatch(txtAmount.Text, @"^[0-9]"))
                 {
                     await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
                     
@@ -287,6 +296,11 @@ namespace TravelApp_G15.Views
                 }
 
             }
+        }
+
+        private void btnAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
