@@ -10,7 +10,7 @@ using TravelApp_G15_API.Data;
 namespace TravelApp_G15_API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210120193949_InitialCreate")]
+    [Migration("20210120205016_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
