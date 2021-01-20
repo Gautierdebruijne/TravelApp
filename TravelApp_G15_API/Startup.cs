@@ -118,7 +118,7 @@ namespace TravelApp_G15_API
                 endpoints.MapControllers();
             });
 
-            init.InitalizeData().Wait();
+            //init.InitalizeData().Wait();
         }
     }
 }
