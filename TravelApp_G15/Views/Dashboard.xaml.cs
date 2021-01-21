@@ -30,11 +30,13 @@ namespace TravelApp_G15.Views
     {
         private ObservableCollection<Trip> _trips;
         private TripViewModel tripViewModel;
+        private LocationViewModel locationViewModel;
 
         public Dashboard()
         {
             this.InitializeComponent();
             tripViewModel = new TripViewModel();
+            locationViewModel = new LocationViewModel();
             _trips = new ObservableCollection<Trip>();
 
             GetAllTrips(tripViewModel);
@@ -119,7 +121,9 @@ namespace TravelApp_G15.Views
                             }
                             else
                             {
-                                await tripViewModel.AddTrip(txtName.Text, departure);
+                                await tripViewModel.AddTrip(txtName.Text, txtCountry.Text, txtCity.Text, departure);
+                                //AddLocation(txtCountry.Text, txtCity.Text);
+
                                 popAdd.IsOpen = false;
                             }
                         }
@@ -161,5 +165,13 @@ namespace TravelApp_G15.Views
                 await tripViewModel.DeleteTrip(tripID);
             }
         }
+
+        //private async void AddLocation(string country, string city)
+        //{
+        //    ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+        //    int tripID = Int32.Parse(local.Values["tripID"].ToString());
+
+        //    await locationViewModel.AddLocation(tripID, country, city);
+        //}
     }
 }

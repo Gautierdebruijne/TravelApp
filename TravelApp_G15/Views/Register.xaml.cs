@@ -37,7 +37,11 @@ namespace TravelApp_G15.Views
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
+            ValidatePassword();
             ValidateLogin();
+
+            txtError.Text = "";
+
             RegisterUser();
         }
 
@@ -84,7 +88,7 @@ namespace TravelApp_G15.Views
 
             if (Regex.IsMatch(txtPassword.Password, @"^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$"))
             {
-                txtError.Text = "A password must have a minimum of seven characters, \nat least one uppercase letter, one lowercase letter, \none number and one special character";
+                txtError.Text = "A password must have a minimum of eight characters, \nat least one uppercase letter, one lowercase letter, \none number and one special character";
             }
             else
             {
@@ -105,13 +109,11 @@ namespace TravelApp_G15.Views
 
                 if (registervm.Success)
                 {
-                    Debug.WriteLine("Succesvol geregistreerd");
                     this.Frame.Navigate(typeof(Dashboard));
                 }
                 else
-                {
-                    Debug.WriteLine("Onsuccesvol geregistreerd");
-                    txtError.Text = "Something has gone wrong, has this email already been used?";
+                {   
+                    txtFail.Text = "Something has gone wrong, has this email already been used?";
                 }
             }
             catch(Exception e)

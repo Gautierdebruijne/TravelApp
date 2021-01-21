@@ -46,6 +46,12 @@ namespace TravelApp_G15.Views
 
             tasks = viewModel.Tasks;
             TaskList.ItemsSource = tasks;
+
+            if (tasks.Count == 0 || tasks == null)
+            {
+                ProgressBar.Visibility = Visibility.Collapsed;
+            }
+
             ProgressbarPercentageToDo();
         }
 
@@ -178,6 +184,7 @@ namespace TravelApp_G15.Views
             {
                 await taskViewModel.AddTask(txtName.Text, tripID);
                 popAdd.IsOpen = false;
+                ProgressBar.Visibility = Visibility.Visible;
             }
             else
             {

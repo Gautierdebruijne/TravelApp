@@ -48,10 +48,15 @@ namespace TravelApp_G15.ViewModels
             }
         }
 
-        public async Task AddTrip(string name, DateTime date)
+        public async Task AddTrip(string name, string country, string city, DateTime date)
         {
             var url = _apiUrl + "/User/addTrip";
-            var trip = new Trip { Name = name, Date = date };
+
+            var location = new Location { Country = country, City = city };
+            ICollection<Location> locations = new List<Location>();
+            locations.Add(location);
+
+            var trip = new Trip { Name = name, Locations = locations, Date = date };
             var tripJson = JsonConvert.SerializeObject(trip);
 
             var result = await _client.PostAsync(url, new StringContent(tripJson, Encoding.UTF8, "application/json"));

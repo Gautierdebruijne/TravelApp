@@ -308,6 +308,7 @@ namespace TravelApp_G15.Views
             {
                 await catViewModel.AddCategory(tripID, txtNameCategory.Text);
                 popAddCategory.IsOpen = false;
+                ProgressBar.Visibility = Visibility.Visible;
             }
             else
             {

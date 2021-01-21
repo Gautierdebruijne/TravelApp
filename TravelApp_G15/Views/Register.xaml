@@ -18,7 +18,8 @@
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
-                <RowDefinition Height="100" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
@@ -80,9 +81,17 @@
                 Width="600" 
             />
 
+            <TextBlock x:Name="txtFail" 
+                Grid.Row="6"
+                FontSize="20"
+                Padding="10 0 0 0"
+                Foreground="OrangeRed" 
+                Width="600" 
+            />
+
             <Button x:Name="btnRegister"
                 Click="btnRegister_Click"
-                Grid.Row="6"   
+                Grid.Row="7"   
                 Width="600"
                 Height="65"
                 CornerRadius="20"
@@ -96,7 +105,7 @@
 
             <Button x:Name="btnLogin"
                 Click="btnLogin_Click"
-                Grid.Row="7"
+                Grid.Row="8"
                 HorizontalAlignment="Center"
                 Background="Transparent"
                 CornerRadius="20">
