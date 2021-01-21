@@ -41,13 +41,18 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="50">
                     <Run FontWeight="SemiBold" Text="It's time to"></Run>
                     <Run Text="travel!" Foreground="#FF01A3ff" FontWeight="Bold" x:Name="userName" />
                 </TextBlock>
 
-                <muxc:ProgressBar x:Name="ProgressBar" Foreground="OrangeRed" Background="LightGreen" Height="25" Width="500" Grid.Row="3" CornerRadius="5" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 40 0 0"/>
-                <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Grid.Row="3" FontSize="15" FontWeight="SemiBold" Margin="0 42 0 0"/>
+                <muxc:ProgressBar x:Name="ProgressBar" Foreground="OrangeRed" Background="LightGreen" Height="20" Width="300" Grid.Row="3" CornerRadius="5" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 40 0 0"/>
+                <TextBlock x:Name="ProgressBarMessage" HorizontalAlignment="Center" Grid.Row="3" FontSize="15" FontWeight="SemiBold" Margin="0 40 0 0"/>
 
                 <ListView x:Name="TaskList" HorizontalAlignment="Center" Grid.Row="2" SelectionMode="None">
                     <ListView.ItemContainerStyle>
@@ -79,8 +84,8 @@
                     <SymbolIcon Symbol="Add" Foreground="Green"/>
                 </Button>
 
-                <Popup x:Name="popAdd" IsOpen="False" IsLightDismissEnabled="True"  VerticalAlignment="Center" HorizontalAlignment="Left" 
-                                    LightDismissOverlayMode="On" Grid.Row="5" >
+                <Popup x:Name="popAdd" IsOpen="False" IsLightDismissEnabled="True"  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="50 0 0 0"
+                                    LightDismissOverlayMode="On" Grid.Row="2" Grid.Column="1">
 
                     <StackPanel HorizontalAlignment="Left">
                         <TextBlock Text="Let's add a task!" FontSize="20" FontWeight="SemiBold" Margin="20"/>
