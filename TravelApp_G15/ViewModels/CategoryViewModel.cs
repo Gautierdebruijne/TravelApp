@@ -48,7 +48,7 @@ namespace TravelApp_G15.ViewModels
         {
             var category = new Category { Name = name };
             var categorieJson = JsonConvert.SerializeObject(category);
-            var url = _apiUrl + "/User/" + tripID + "/addCategory";
+            var url = _apiUrl + "/User/" + tripID + "/addCategorie";
 
             var result = await _client.PostAsync(url, new StringContent(categorieJson, Encoding.UTF8, "application/json"));
 

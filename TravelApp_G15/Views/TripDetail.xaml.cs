@@ -74,7 +74,8 @@ namespace TravelApp_G15.Views
             categories = viewModel.Categories;
             CatList.ItemsSource = categories;
 
-            if(categories.Count == 0 || categories == null) { 
+            if(categories.Count == 0 || categories == null) {
+                ProgressBar.Visibility = Visibility.Collapsed;
             }
 
             ProgressbarPercentageToDo();
@@ -188,7 +189,7 @@ namespace TravelApp_G15.Views
 
         private void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
-            popAdd.IsOpen = true;
+            popAddItem.IsOpen = true;
 
             ProgressbarPercentageToDo();
         }
@@ -204,21 +205,21 @@ namespace TravelApp_G15.Views
             //int cateID = Int32.Parse(local.Values["catID"].ToString());
            //int itemID = (int)(sender as ).Tag;
 
-            if (txtName.Text != "" && txtName.Text != null)
+            if (txtNameItem.Text != "" && txtNameItem.Text != null)
             {
                 if(txtAmount.Text != "" && txtAmount.Text != null && Regex.IsMatch(txtAmount.Text, @"^[0-9]"))
                 {
-                    await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
+                    await itemViewModel.AddItem(tripID, txtNameItem.Text, Int32.Parse(txtAmount.Text));
                     
                     //await itemViewModel.AddItemToCategory(tripID, cateID, itemID);
-                    popAdd.IsOpen = false;
+                    popAddItem.IsOpen = false;
                 }
                 else
                 {
                     txtAmount.Text = "1";
 
-                    await itemViewModel.AddItem(tripID, txtName.Text, Int32.Parse(txtAmount.Text));
-                    popAdd.IsOpen = false;
+                    await itemViewModel.AddItem(tripID, txtNameItem.Text, Int32.Parse(txtAmount.Text));
+                    popAddItem.IsOpen = false;
                 }
             }
             else
@@ -294,13 +295,29 @@ namespace TravelApp_G15.Views
                 {
                     ProgressBarMessage.Text = "You have completed all your tasks!";
                 }
+            }
+        }
 
+        private async void btnPopAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            txtErrorCategory.Text = "";
+            ApplicationDataContainer local = ApplicationData.Current.LocalSettings;
+            int tripID = Int32.Parse(local.Values["tripID"].ToString());
+
+            if (txtNameCategory.Text != "" && txtNameCategory.Text != null)
+            {
+                await catViewModel.AddCategory(tripID, txtNameCategory.Text);
+                popAddCategory.IsOpen = false;
+            }
+            else
+            {
+                txtErrorCategory.Text = "Name is required!";
             }
         }
 
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
-
+            popAddCategory.IsOpen = true;
         }
     }
 }
