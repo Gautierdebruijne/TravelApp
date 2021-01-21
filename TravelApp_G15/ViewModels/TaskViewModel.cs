@@ -15,8 +15,8 @@ namespace TravelApp_G15.ViewModels
     {
         public ObservableCollection<TaskModel> Tasks { get; set; }
         private HttpClient _client;
-        //private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
-        private string _apiUrl = "https://localhost:5001/api";
+        private string _apiUrl = "https://travelappg15api.azurewebsites.net/api";
+        //private string _apiUrl = "https://localhost:5001/api";
 
         public TaskViewModel()
         {
@@ -75,7 +75,7 @@ namespace TravelApp_G15.ViewModels
             int tripID = Int32.Parse(local.Values["tripID"].ToString());
 
             var taskJson = JsonConvert.SerializeObject(task);
-            var url = "https://localhost:5001/api/User/" + tripID + "/Tasks/" + task.TaskID;
+            var url = _apiUrl + "/User/" + tripID + "/Tasks/" + task.TaskID;
 
             var res = await _client.PutAsync(url, new StringContent(taskJson, Encoding.UTF8, "application/json"));
         }
